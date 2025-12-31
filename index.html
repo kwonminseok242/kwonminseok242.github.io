@@ -1,4 +1,4 @@
-3<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         :root {
             --bg-dark: #0f172a;
             --bg-card: #1e293b;
-            --accent: #38bdf8; /* AI/데이터 느낌의 스카이블루 */
+            --accent: #38bdf8;
             --text-main: #f1f5f9;
             --text-dim: #94a3b8;
             --code-font: 'JetBrains Mono', monospace;
@@ -57,7 +57,7 @@
         .skill-card { background: var(--bg-card); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
         .skill-card i { font-size: 2rem; color: var(--accent); margin-bottom: 15px; }
 
-        /* 프로젝트 (공모전/대회 강조) */
+        /* 프로젝트 */
         .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .project-card { 
             background: var(--bg-card); border-radius: 16px; overflow: hidden; 
@@ -65,14 +65,14 @@
         }
         .project-card:hover { transform: translateY(-10px); border-color: var(--accent); }
         .project-img { height: 200px; background: #334155; position: relative; overflow: hidden; }
-        .project-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .project-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
         .badge { 
             position: absolute; top: 15px; left: 15px; background: var(--accent); 
-            color: var(--bg-dark); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;
+            color: var(--bg-dark); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; z-index: 2;
         }
         .project-info { padding: 25px; }
-        .project-info h3 { margin-bottom: 10px; font-size: 1.4rem; }
-        .project-info p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 20px; height: 80px; overflow: hidden; }
+        .project-info h3 { margin-bottom: 10px; font-size: 1.4rem; color: var(--text-main); }
+        .project-info p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 20px; height: 80px; overflow-y: auto; }
         .tags { display: flex; gap: 10px; flex-wrap: wrap; }
         .tags span { font-family: var(--code-font); font-size: 0.8rem; color: var(--accent); background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; }
 
@@ -115,8 +115,8 @@
                     복잡한 문제를 해결하고 모델을 최적화하는 과정을 즐깁니다.
                 </p>
                 <div class="social-links" style="justify-content: flex-start;">
-                    <a href="https://github.com/kwonminseok242"><i class="fab fa-github"></i></a>
-                    <a href="mailto:your-email@example.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/kwonminseok242" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="mailto:kwonminseok7364@naver.com"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
         </div>
@@ -145,14 +145,15 @@
         <section id="projects">
             <h2 class="section-title">Featured Projects</h2>
             <div class="project-grid">
+                
                 <div class="project-card">
                     <div class="project-img">
                         <span class="badge">공모전 대상 수상</span>
-                        <img src="https://github.com/kwonminseok242/kwonminseok242.github.io/blob/main/koscom.png" alt="프로젝트 이미지">
+                        <img src="https://raw.githubusercontent.com/kwonminseok242/kwonminseok242.github.io/main/koscom.png" alt="코스콤 프로젝트">
                     </div>
                     <div class="project-info">
-                        <h3>법정화폐기반 스테이블 코인 리스크 관리 AI Agent개발<h3>
-                        <p>클로드ai와 dart, 스테이블 코인 거래 데이터를 통해서 개발하였습니다.<p>
+                        <h3>법정화폐기반 스테이블 코인 리스크 관리 AI Agent 개발</h3>
+                        <p>클로드 AI와 DART 공시 정보, 스테이블 코인 거래 데이터를 결합하여 이상 거래를 탐지하고 관리하는 AI 에이전트를 개발하였습니다.</p>
                         <div class="tags">
                             <span>#Python</span><span>#MachineLearning</span><span>#AnomalyDetection</span>
                         </div>
@@ -162,30 +163,31 @@
                 <div class="project-card">
                     <div class="project-img">
                         <span class="badge">산업공학회 논문대회</span>
-                        <img src="https://github.com/kwonminseok242/kwonminseok242.github.io/blob/main/indust.png" alt="프로젝트 이미지">
+                        <img src="https://raw.githubusercontent.com/kwonminseok242/kwonminseok242.github.io/main/indust.png" alt="반도체 OHT 프로젝트">
                     </div>
                     <div class="project-info">
-                        <h3>반도체 OHT 이송장치 센서 데이터 기반 탄화 예측 및 클라우드 실시간 모니터링 시스템 </h3>
-                        <p>반도체 웨이퍼칩을 oht 이송장치를 통해 이송 중 센서 데이터를 기반으로 탄화 예측 모니터링 시스템 구현</p>
+                        <h3>반도체 OHT 이송장치 센서 기반 탄화 예측 시스템</h3>
+                        <p>반도체 웨이퍼를 이송하는 OHT 장치의 센서 데이터를 분석하여 고장 전조 현상인 탄화를 예측하고, 클라우드 기반 실시간 모니터링을 구현했습니다.</p>
                         <div class="tags">
-                            <span>#DeepLearning</span><span>#PyTorch</span><span>#ComputerVision</span>
+                            <span>#DeepLearning</span><span>#PyTorch</span><span>#Cloud_Monitoring</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-img">
-                        <span class="badge">K-PaaS 클라우드 공모전>ㅏ>ㅏspa
-                        <img src="https://github.com/kwonminseok242/kwonminseok242.github.io/blob/main/k-paas.png" alt="프로젝트 이미지">
+                        <span class="badge">K-PaaS 클라우드 공모전</span>
+                        <img src="https://raw.githubusercontent.com/kwonminseok242/kwonminseok242.github.io/main/k-paas.png" alt="청소년 정서 앱 프로젝트">
                     </div>
                     <div class="project-info">
-                        <h3>OpenAI 챗봇과 KoBERT 모델을 결합한 청소년 정서 보조 애플리케이션 개발</h3>
-                        <p>KoBERT 기반 AI로 대화를 분석하여 감정을 60개 세부 감정으로 분류하고, 맞춤형 캐릭터·리포트를 통해 정서 인식과 성장을 지원, 우울감이나 위험 신호가 누적될 경우 PHQ-9 체크봇으로 심층 대화를 진행하고, 필요 시 전문가 상담·의료 자원과 연계</p>
+                        <h3>OpenAI & KoBERT 기반 청소년 정서 보조 앱</h3>
+                        <p>KoBERT 모델로 감정을 60가지로 상세 분류하여 분석하고, 우울증 척도(PHQ-9) 기반 대화 및 전문가 연계를 지원하는 애플리케이션입니다.</p>
                         <div class="tags">
-                            <span>#DataAnalysis</span><span>#Clustering</span><span>#Scikit-learn</span>
+                            <span>#NLP</span><span>#KoBERT</span><span>#Scikit-learn</span>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </section>
 
@@ -193,9 +195,9 @@
             <div class="contact-box">
                 <h2>함께 성장할 파트너를 찾으시나요?</h2>
                 <p style="margin: 20px 0; color: var(--text-dim);">언제든 열려 있습니다. 연락주세요!</p>
-                <a href="mailto:your-email@example.com" class="logo" style="font-size: 1.5rem;">kwonminseok7364@naver.com</a>
+                <a href="mailto:kwonminseok7364@naver.com" class="logo" style="font-size: 1.5rem;">kwonminseok7364@naver.com</a>
                 <div class="social-links">
-                    <a href="https://github.com/kwonminseok242"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://github.com/kwonminseok242" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                     <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
                 </div>
             </div>
@@ -203,7 +205,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2023 Kwon Minseok. Built with Code & Data.</p>
+        <p>&copy; 2025 Kwon Minseok. Built with Code & Data.</p>
     </footer>
 
 </body>
