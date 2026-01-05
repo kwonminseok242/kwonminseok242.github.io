@@ -1,101 +1,195 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프로젝트 상세 정보</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --accent: #38bdf8;
-            --text-main: #f1f5f9;
-            --text-dim: #94a3b8;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>프로젝트 상세 정보</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --accent: #38bdf8;
+      --text-main: #f1f5f9;
+      --text-dim: #94a3b8;
+    }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Pretendard', sans-serif;
-            line-height: 1.8;
-            padding: 40px 20px;
-        }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Pretendard', sans-serif;
+      line-height: 1.8;
+      padding: 40px 20px;
+    }
 
-        .container { max-width: 800px; margin: 0 auto; }
-        
-        /* 돌아가기 버튼 */
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--accent);
-            text-decoration: none;
-            margin-bottom: 40px;
-            font-weight: 600;
-        }
+    .container { max-width: 800px; margin: 0 auto; }
+    
+    /* 돌아가기 버튼 */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent);
+      text-decoration: none;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
 
-        header { margin-bottom: 50px; }
-        h1 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.3; }
-        .tag-box { display: flex; gap: 10px; margin-bottom: 30px; }
-        .tag { background: rgba(56, 189, 248, 0.1); color: var(--accent); padding: 5px 12px; border-radius: 6px; font-size: 0.9rem; }
+    header { margin-bottom: 50px; }
+    h1 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.3; }
+    .tag-box { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
+    .tag { background: rgba(56, 189, 248, 0.1); color: var(--accent); padding: 5px 12px; border-radius: 6px; font-size: 0.9rem; }
 
-        .main-img { 
-            width: 100%; border-radius: 20px; margin-bottom: 50px; 
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+    .main-img { 
+      width: 100%; border-radius: 20px; margin-bottom: 50px; 
+      border: 1px solid rgba(255,255,255,0.1);
+    }
 
-        section { margin-bottom: 60px; }
-        h2 { font-size: 1.8rem; margin-bottom: 25px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
-        p { color: var(--text-dim); font-size: 1.1rem; }
-        
-        ul { list-style: none; padding-left: 0; }
-        li { margin-bottom: 15px; color: var(--text-dim); display: flex; gap: 10px; }
-        li::before { content: "•"; color: var(--accent); font-weight: bold; }
+    section { margin-bottom: 60px; }
+    h2 { font-size: 1.8rem; margin-bottom: 25px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+    p { color: var(--text-dim); font-size: 1.1rem; }
+    
+    ul { list-style: none; padding-left: 0; }
+    li { margin-bottom: 15px; color: var(--text-dim); display: flex; gap: 10px; }
+    li::before { content: "•"; color: var(--accent); font-weight: bold; }
 
-        footer { text-align: center; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-dim); }
-    </style>
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 18px 18px;
+      margin-top: 18px;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .meta .item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 14px 14px;
+      color: var(--text-dim);
+      font-size: 1.02rem;
+    }
+    .meta .item strong { color: var(--text-main); font-weight: 700; }
+
+    code, .mono {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.98rem;
+      color: var(--text-main);
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(56,189,248,0.25);
+      background: rgba(56,189,248,0.08);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-right: 8px;
+      margin-bottom: 10px;
+    }
+
+    footer { text-align: center; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-dim); }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> 프로젝트 목록으로 돌아가기</a>
+  <div class="container">
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> 프로젝트 목록으로 돌아가기</a>
 
-        <header>
-            <h1>법정화폐기반 스테이블 코인 리스크 관리 AI Agent 개발</h1>
-            <div class="tag-box">
-                <span class="tag">#기술스택1</span>
-                <span class="tag">#기술스택2</span>
-                <span class="tag">#AI</span>
-            </div>
-        </header>
+    <header>
+      <h1>법정화폐기반 스테이블 코인 리스크 관리 AI Agent 개발</h1>
 
-        <img src="../koscom.png" alt="Project Image" class="main-img">
+      <div class="tag-box">
+        <span class="tag">#Python</span>
+        <span class="tag">#FastAPI</span>
+        <span class="tag">#LangGraph</span>
+        <span class="tag">#LLM</span>
+        <span class="tag">#RAG</span>
+        <span class="tag">#Compliance</span>
+      </div>
 
-        <section>
-            <h2><i class="fas fa-bullseye"></i> Project Overview</h2>
-            <p>이 프로젝트는 어떤 문제를 해결하기 위해 시작되었는지, 주요 목적이 무엇인지 적어주세요.</p>
-        </section>
+      <div class="meta">
+        <div class="item"><strong>역할</strong><br/>AI Agent 설계/구현, 리스크 평가 질의 설계, 증빙팩 생성 파이프라인 구축</div>
+        <div class="item"><strong>키워드</strong><br/>규제준수 리포팅, 리스크 스코어링, 이벤트 추적/감사, 무결성 검증</div>
+      </div>
+    </header>
 
-        <section>
-            <h2><i class="fas fa-tools"></i> Core Tasks</h2>
-            <ul>
-                <li>데이터 수집 및 전처리 과정 설명</li>
-                <li>사용한 알고리즘 및 모델링 전략</li>
-                <li>성능 최적화 및 결과 도출</li>
-            </ul>
-        </section>
+    <img src="../koscom.png" alt="Project Image" class="main-img">
 
-        <section>
-            <h2><i class="fas fa-trophy"></i> Results & Learnings</h2>
-            <p>프로젝트를 통해 얻은 성과(수상 기록, 수치적 향상 등)와 개인적으로 배운 점을 적으세요.</p>
-        </section>
+    <section>
+      <h2><i class="fas fa-bullseye"></i> Project Overview</h2>
 
-        <footer>
-            <p>&copy; 2025 Kwon Minseok. All rights reserved.</p>
-        </footer>
-    </div>
+      <p>
+        법정화폐 기반 스테이블 코인은 <span class="mono">준비금(Reserve)</span>, <span class="mono">거래 흐름(Transaction)</span>,
+        <span class="mono">규제 준수(Compliance)</span> 관점의 리스크를 동시에 관리해야 합니다.
+        하지만 실무에서는 이벤트가 여러 시스템에 흩어져 있고, “왜 위험인지 / 어떤 근거로 판단했는지”를
+        빠르게 설명(Explain)하고 증빙(Proof)까지 남기기가 어렵습니다.
+      </p>
+
+      <div class="card">
+        <span class="pill"><i class="fa-solid fa-shield-halved"></i> 목표</span>
+        <span class="pill"><i class="fa-solid fa-file-circle-check"></i> 증빙 자동화</span>
+        <span class="pill"><i class="fa-solid fa-chart-line"></i> 리스크 가시화</span>
+        <p style="margin-top:12px;">
+          본 프로젝트는 <b>리스크 평가 → 규제준수보고서 생성 → 증빙팩(원본/무결성 정보 포함) 자동 생성</b>까지
+          한 흐름으로 연결하는 <b>리스크 관리 AI Agent</b>를 구현했습니다.
+          사용자는 자연어로 질문하면, 에이전트가 필요한 데이터를 조회/요약하고,
+          근거와 함께 리포트를 구성하며, 결과물을 대시보드에서 바로 다운로드할 수 있도록 했습니다.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-tools"></i> Core Tasks</h2>
+      <ul>
+        <li><b>리스크 평가 질의/시나리오 설계</b> : 준비금 변동, 급격한 유출입, 비정상 패턴 등 리스크 분석 예시 질문 템플릿 구성</li>
+        <li><b>AI Agent 오케스트레이션</b> : <span class="mono">LangGraph</span> 기반으로 “질문 이해 → 근거 수집 → 분석/요약 → 리포트 생성” 단계형 플로우 구현</li>
+        <li><b>규제준수 보고서 생성</b> : 리스크 요약, 근거(데이터 스냅샷/로그), 권고 액션을 포함한 보고서 포맷 자동 생성</li>
+        <li><b>증빙팩 생성 파이프라인</b> : 이벤트 1건 또는 여러 거래를 묶어 <span class="mono">JSON</span> 증빙팩 생성 (원본/무결성 정보 포함) 및 다운로드 제공</li>
+        <li><b>대시보드 연동</b> : 생성된 보고서/증빙팩 목록을 대시보드에서 조회하고 바로 다운로드 가능하도록 구성</li>
+        <li><b>시각화/랭크 그래프 적용</b> : 리스크 항목 우선순위를 직관적으로 보여주기 위해 랭크 그래프를 ‘규제준수보고서’ 섹션에 집중 적용</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-trophy"></i> Results & Learnings</h2>
+
+      <p>
+        결과물은 “리스크 판단의 <b>일관성</b>”과 “감사/대응을 위한 <b>설명 가능성</b>”을 강화하는 데 초점을 맞췄습니다.
+        단순히 답변을 내는 챗봇이 아니라, <b>근거를 남기고(증빙)</b> <b>재검증 가능</b>한 형태로 산출물을 제공하도록 설계했습니다.
+      </p>
+
+      <ul style="margin-top:18px;">
+        <li><b>산출물 표준화</b> : 리스크 분석 결과를 보고서 템플릿으로 구조화하고, 동일한 질문에 대해 일관된 포맷으로 응답</li>
+        <li><b>감사 대응성 강화</b> : 증빙팩에 원본 데이터/무결성 정보를 포함하여 “왜 이렇게 판단했는가”를 추적 가능하게 구성</li>
+        <li><b>Agent 설계 역량</b> : LangGraph로 단계/조건 분기/툴 호출을 관리하며, 실무형 에이전트 워크플로우를 구현</li>
+        <li><b>UI/커뮤니케이션</b> : 대시보드에서 생성물 목록 확인/다운로드까지 이어지도록 사용자 동선을 명확히 정리</li>
+      </ul>
+
+      <div class="card">
+        <p style="margin:0;">
+          <b>개인적으로 배운 점</b><br/>
+          “정답 생성”보다 중요한 건, 금융/컴플라이언스 문맥에서 <b>근거(데이터) → 판단(로직) → 증빙(무결성)</b>이
+          한 세트로 묶여야 한다는 점이었습니다. 그래서 에이전트의 출력은 항상
+          <b>재현 가능</b>하고 <b>검증 가능</b>하도록 설계하는 방향으로 발전시켰습니다.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Kwon Minseok. All rights reserved.</p>
+    </footer>
+  </div>
 
 </body>
 </html>

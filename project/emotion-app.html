@@ -1,101 +1,239 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프로젝트 상세 정보</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --accent: #38bdf8;
-            --text-main: #f1f5f9;
-            --text-dim: #94a3b8;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>프로젝트 상세 정보</title>
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Pretendard', sans-serif;
-            line-height: 1.8;
-            padding: 40px 20px;
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        .container { max-width: 800px; margin: 0 auto; }
-        
-        /* 돌아가기 버튼 */
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--accent);
-            text-decoration: none;
-            margin-bottom: 40px;
-            font-weight: 600;
-        }
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --accent: #38bdf8;
+      --text-main: #f1f5f9;
+      --text-dim: #94a3b8;
+    }
 
-        header { margin-bottom: 50px; }
-        h1 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.3; }
-        .tag-box { display: flex; gap: 10px; margin-bottom: 30px; }
-        .tag { background: rgba(56, 189, 248, 0.1); color: var(--accent); padding: 5px 12px; border-radius: 6px; font-size: 0.9rem; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Pretendard', sans-serif;
+      line-height: 1.8;
+      padding: 40px 20px;
+    }
 
-        .main-img { 
-            width: 100%; border-radius: 20px; margin-bottom: 50px; 
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+    .container { max-width: 800px; margin: 0 auto; }
 
-        section { margin-bottom: 60px; }
-        h2 { font-size: 1.8rem; margin-bottom: 25px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
-        p { color: var(--text-dim); font-size: 1.1rem; }
-        
-        ul { list-style: none; padding-left: 0; }
-        li { margin-bottom: 15px; color: var(--text-dim); display: flex; gap: 10px; }
-        li::before { content: "•"; color: var(--accent); font-weight: bold; }
+    /* 돌아가기 버튼 */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent);
+      text-decoration: none;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
 
-        footer { text-align: center; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-dim); }
-    </style>
+    header { margin-bottom: 50px; }
+    h1 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.3; }
+
+    .tag-box { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
+    .tag {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(56, 189, 248, 0.15);
+    }
+
+    .main-img {
+      width: 100%;
+      border-radius: 20px;
+      margin-bottom: 50px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    section { margin-bottom: 60px; }
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    p { color: var(--text-dim); font-size: 1.1rem; margin: 0 0 14px; }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 18px 18px;
+      margin-top: 18px;
+    }
+
+    ul { list-style: none; padding-left: 0; margin: 0; }
+    li {
+      margin-bottom: 14px;
+      color: var(--text-dim);
+      display: flex;
+      gap: 10px;
+    }
+    li::before { content: "•"; color: var(--accent); font-weight: bold; }
+
+    .mono {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 14px 14px;
+      overflow-x: auto;
+      margin-top: 14px;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-dim);
+    }
+  </style>
 </head>
+
 <body>
+  <div class="container">
+    <a href="../index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> 프로젝트 목록으로 돌아가기
+    </a>
 
-    <div class="container">
-        <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> 프로젝트 목록으로 돌아가기</a>
+    <header>
+      <h1>OpenAI &amp; KoBERT 기반 청소년 정서 보조 앱 (INSIDE_UP)</h1>
 
-        <header>
-            <h1>OpenAI & KoBERT 기반 청소년 정서 보조 앱</h1>
-            <div class="tag-box">
-                <span class="tag">#기술스택1</span>
-                <span class="tag">#기술스택2</span>
-                <span class="tag">#AI</span>
-            </div>
-        </header>
+      <div class="tag-box">
+        <span class="tag">#OpenAI</span>
+        <span class="tag">#KoBERT</span>
+        <span class="tag">#FastAPI</span>
+        <span class="tag">#MySQL</span>
+        <span class="tag">#Redis</span>
+        <span class="tag">#Kubernetes</span>
+        <span class="tag">#K-PaaS</span>
+        <span class="tag">#Ingress</span>
+      </div>
+    </header>
 
-        <img src="../k-paas.png" alt="Project Image" class="main-img">
+    <!-- 이미지 경로는 너 프로젝트 구조에 맞게 유지 -->
+    <img src="../k-paas.png" alt="Project Image" class="main-img" />
 
-        <section>
-            <h2><i class="fas fa-bullseye"></i> Project Overview</h2>
-            <p>이 프로젝트는 어떤 문제를 해결하기 위해 시작되었는지, 주요 목적이 무엇인지 적어주세요.</p>
-        </section>
+    <section>
+      <h2><i class="fas fa-bullseye"></i> Project Overview</h2>
+      <p>
+        <b>INSIDE_UP</b>은 청소년이 일상에서 느끼는 스트레스/불안/우울 같은 감정을
+        <b>가볍게 기록</b>하고, AI가 대화를 통해 감정을 정리해주며
+        <b>주간 리포트 형태로 인사이트</b>를 제공하는 정서 보조 앱입니다.
+      </p>
+      <p>
+        단순 “상담 대화”에 그치지 않고,
+        <b>KoBERT 감성분석</b>으로 텍스트의 정서 경향을 정량화하고
+        <b>OpenAI 기반 챗봇</b>으로 공감/질문/행동 제안을 구성해
+        사용자가 스스로 상태를 파악하고 회복 루틴을 만들도록 설계했습니다.
+      </p>
 
-        <section>
-            <h2><i class="fas fa-tools"></i> Core Tasks</h2>
-            <ul>
-                <li>데이터 수집 및 전처리 과정 설명</li>
-                <li>사용한 알고리즘 및 모델링 전략</li>
-                <li>성능 최적화 및 결과 도출</li>
-            </ul>
-        </section>
+      <div class="card">
+        <p style="margin-bottom:10px;"><b>핵심 목표</b></p>
+        <ul>
+          <li>청소년이 부담 없이 감정을 표현할 수 있는 “대화형 기록” 제공</li>
+          <li>KoBERT 기반 감성분석으로 감정 변화 추적(주/기간 단위)</li>
+          <li>주간 리포트(요약/추세/인사이트)로 “스스로 이해 + 다음 행동”까지 연결</li>
+        </ul>
+      </div>
+    </section>
 
-        <section>
-            <h2><i class="fas fa-trophy"></i> Results & Learnings</h2>
-            <p>프로젝트를 통해 얻은 성과(수상 기록, 수치적 향상 등)와 개인적으로 배운 점을 적으세요.</p>
-        </section>
+    <section>
+      <h2><i class="fas fa-sitemap"></i> System Architecture</h2>
+      <p>
+        서비스는 기능을 분리한 <b>마이크로서비스 구조</b>로 구성했고,
+        K-PaaS(Kubernetes) 환경에 배포하여 운영 가능한 형태로 만들었습니다.
+      </p>
 
-        <footer>
-            <p>&copy; 2025 Kwon Minseok. All rights reserved.</p>
-        </footer>
-    </div>
+      <div class="mono">
+        insideup namespace<br/>
+        ├─ backend-api (FastAPI) : 인증/유저/기록/리포트 API<br/>
+        ├─ chatbot-ai (FastAPI) : OpenAI 연동 대화/프롬프트/응답 처리<br/>
+        ├─ kobert-sentiment : KoBERT 감성분석 서비스(정서 점수/라벨)<br/>
+        ├─ mysql : 데이터 저장(기록/리포트/유저 등)<br/>
+        ├─ redis : 캐시/세션/토큰 등 처리<br/>
+        └─ ingress (nginx) : /api, /chat, /sentiment 라우팅
+      </div>
 
+      <div class="card">
+        <p style="margin-bottom:10px;"><b>라우팅 예시</b></p>
+        <ul>
+          <li><b>/api/</b> → backend-service (8000)</li>
+          <li><b>/chat/</b> → chatbot-service (8001)</li>
+          <li><b>/sentiment/</b> → kobert-sentiment-service</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-tools"></i> Core Tasks</h2>
+      <ul>
+        <li><b>백엔드 API 구축</b>: FastAPI 기반으로 인증/데이터 처리/리포트 생성 API 설계 및 구현</li>
+        <li><b>OpenAI 챗봇 서비스</b>: 대화 흐름 설계(공감 → 질문 → 요약 → 행동 제안), 응답 품질 개선</li>
+        <li><b>KoBERT 감성분석</b>: 텍스트 감정 라벨/점수 산출용 별도 서비스로 분리하여 연동</li>
+        <li><b>DB/캐시 구성</b>: MySQL로 영속 데이터 저장, Redis로 캐시/세션 등 성능 보조</li>
+        <li><b>Kubernetes 배포</b>: Deployment/Service/ConfigMap/Secret/Ingress 정의하여 K-PaaS에 배포</li>
+        <li><b>운영 관점 최적화</b>: 리소스 request/limit 설정, imagePullSecret 적용, 서비스 분리로 장애 영향 최소화</li>
+      </ul>
+
+      <div class="card">
+        <p style="margin-bottom:10px;"><b>배포에서 신경 쓴 포인트</b></p>
+        <ul>
+          <li>서비스별 포트 분리(8000/8001/…)</li>
+          <li>ConfigMap/Secret로 환경변수 관리(민감정보 코드에 하드코딩 방지)</li>
+          <li>Ingress로 외부 진입점 단일화</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-trophy"></i> Results &amp; Learnings</h2>
+      <p>
+        이번 프로젝트를 통해 “앱 기능 구현”을 넘어서,
+        <b>실제로 배포/운영 가능한 AI 서비스 형태</b>로 구성하는 경험을 만들었습니다.
+      </p>
+
+      <div class="card">
+        <p style="margin-bottom:10px;"><b>성과(예시 문구)</b></p>
+        <ul>
+          <li>OpenAI + KoBERT 감성분석을 결합한 정서 보조 파이프라인 구축</li>
+          <li>마이크로서비스 기반으로 기능 분리(챗봇/감성분석/백엔드)하여 확장성 확보</li>
+          <li>K-PaaS(Kubernetes) 환경에 Ingress 포함 배포 구성 완료</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <p style="margin-bottom:10px;"><b>배운 점</b></p>
+        <ul>
+          <li>AI 기능도 “서비스 운영 관점(배포/라우팅/리소스)”으로 설계해야 안정적으로 돌아간다</li>
+          <li>모델/LLM 품질은 프롬프트와 UX 흐름(질문 순서/요약 방식)에서 크게 좌우된다</li>
+          <li>Config/Secret 분리, 서비스 분리 등 기본기가 실제 장애/유지보수 난이도를 결정한다</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Kwon Minseok. All rights reserved.</p>
+    </footer>
+  </div>
 </body>
 </html>
