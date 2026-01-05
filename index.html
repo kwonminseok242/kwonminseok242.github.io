@@ -57,13 +57,20 @@
         .skill-card { background: var(--bg-card); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
         .skill-card i { font-size: 2rem; color: var(--accent); margin-bottom: 15px; }
 
-        /* 프로젝트 */
+        /* 프로젝트 그리드 및 카드 */
         .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        
+        /* 카드 링크 스타일 추가 */
+        .project-link { display: block; text-decoration: none; color: inherit; }
+        
         .project-card { 
             background: var(--bg-card); border-radius: 16px; overflow: hidden; 
             border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+            height: 100%; /* 카드 높이 통일 */
         }
-        .project-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        
+        .project-link:hover .project-card { transform: translateY(-10px); border-color: var(--accent); }
+
         .project-img { height: 200px; background: #334155; position: relative; overflow: hidden; }
         .project-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
         .badge { 
@@ -146,47 +153,53 @@
             <h2 class="section-title">Featured Projects</h2>
             <div class="project-grid">
                 
-                <div class="project-card">
-                    <div class="project-img">
-                        <span class="badge">공모전 대상 수상</span>
-                        <img src="https://raw.githubusercontent.com/kwonminseok242/kwonminseok242.github.io/main/koscom.png" alt="코스콤 프로젝트">
-                    </div>
-                    <div class="project-info">
-                        <h3>법정화폐기반 스테이블 코인 리스크 관리 AI Agent 개발</h3>
-                        <p>클로드 AI와 DART 공시 정보, 스테이블 코인 거래 데이터를 결합하여 이상 거래를 탐지하고 관리하는 AI 에이전트를 개발하였습니다.</p>
-                        <div class="tags">
-                            <span>#Python</span><span>#MachineLearning</span><span>#AnomalyDetection</span>
+                <a href="project/stable-coin.html" class="project-link">
+                    <div class="project-card">
+                        <div class="project-img">
+                            <span class="badge">공모전 대상 수상</span>
+                            <img src="koscom.png" alt="코스콤 프로젝트">
+                        </div>
+                        <div class="project-info">
+                            <h3>법정화폐기반 스테이블 코인 리스크 관리 AI Agent 개발</h3>
+                            <p>클로드 AI와 DART 공시 정보, 스테이블 코인 거래 데이터를 결합하여 이상 거래를 탐지하고 관리하는 AI 에이전트를 개발하였습니다.</p>
+                            <div class="tags">
+                                <span>#Python</span><span>#MachineLearning</span><span>#AnomalyDetection</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
 
-                <div class="project-card">
-                    <div class="project-img">
-                        <span class="badge">산업공학회 논문대회</span>
-                        <img src="https://raw.githubusercontent.com/kwonminseok242/kwonminseok242.github.io/main/indust.png" alt="반도체 OHT 프로젝트">
-                    </div>
-                    <div class="project-info">
-                        <h3>반도체 OHT 이송장치 센서 기반 탄화 예측 시스템</h3>
-                        <p>반도체 웨이퍼를 이송하는 OHT 장치의 센서 데이터를 분석하여 고장 전조 현상인 탄화를 예측하고, 클라우드 기반 실시간 모니터링을 구현했습니다.</p>
-                        <div class="tags">
-                            <span>#DeepLearning</span><span>#PyTorch</span><span>#Cloud_Monitoring</span>
+                <a href="project/oht-sensor.html" class="project-link">
+                    <div class="project-card">
+                        <div class="project-img">
+                            <span class="badge">산업공학회 논문대회</span>
+                            <img src="indust.png" alt="반도체 OHT 프로젝트">
+                        </div>
+                        <div class="project-info">
+                            <h3>반도체 OHT 이송장치 센서 기반 탄화 예측 시스템</h3>
+                            <p>반도체 웨이퍼를 이송하는 OHT 장치의 센서 데이터를 분석하여 고장 전조 현상인 탄화를 예측하고, 클라우드 기반 실시간 모니터링을 구현했습니다.</p>
+                            <div class="tags">
+                                <span>#DeepLearning</span><span>#PyTorch</span><span>#Cloud_Monitoring</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
 
-                <div class="project-card">
-                    <div class="project-img">
-                        <span class="badge">K-PaaS 클라우드 공모전</span>
-                        <img src="https://raw.githubusercontent.com/kwonminseok242/kwonminseok242.github.io/main/k-paas.png" alt="청소년 정서 앱 프로젝트">
-                    </div>
-                    <div class="project-info">
-                        <h3>OpenAI & KoBERT 기반 청소년 정서 보조 앱</h3>
-                        <p>KoBERT 모델로 감정을 60가지로 상세 분류하여 분석하고, 우울증 척도(PHQ-9) 기반 대화 및 전문가 연계를 지원하는 애플리케이션입니다.</p>
-                        <div class="tags">
-                            <span>#NLP</span><span>#KoBERT</span><span>#Scikit-learn</span>
+                <a href="project/emotion-app.html" class="project-link">
+                    <div class="project-card">
+                        <div class="project-img">
+                            <span class="badge">K-PaaS 공모전</span>
+                            <img src="k-paas.png" alt="청소년 정서 앱 프로젝트">
+                        </div>
+                        <div class="project-info">
+                            <h3>OpenAI & KoBERT 기반 청소년 정서 보조 앱</h3>
+                            <p>KoBERT 모델로 감정을 60가지로 상세 분류하여 분석하고, 우울증 척도(PHQ-9) 기반 대화 및 전문가 연계를 지원하는 애플리케이션입니다.</p>
+                            <div class="tags">
+                                <span>#NLP</span><span>#KoBERT</span><span>#Scikit-learn</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
                 
             </div>
         </section>
