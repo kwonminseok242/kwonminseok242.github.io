@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>스테이블 코인 리스크 관리 AI Agent | 권민석</title>
-
+  <title>스테이블코인 리스크 관리 AI Agent | 권민석</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
   <style>
     :root {
       --bg-primary: #000000;
@@ -388,142 +386,72 @@
         font-size: 1.75rem;
       }
     }
+  
+    table.cmp { width:100%; border-collapse:collapse; margin-top:16px; font-size:0.95rem; }
+    table.cmp th, table.cmp td { border:1px solid var(--border); padding:12px 14px; text-align:left; color:var(--text-secondary); vertical-align:top; }
+    table.cmp th { color:var(--text-primary); background:rgba(59,130,246,0.08); font-weight:700; }
+    table.cmp tr.pick td { color:var(--text-primary); background:rgba(59,130,246,0.06); }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    .two .card { margin-top:0; }
+    .card h3 { font-size:1.05rem; margin-bottom:10px; color:var(--text-primary); }
+    .note { font-size:0.9rem; color:var(--text-muted); margin-top:12px; }
+    .table-wrap { overflow-x:auto; }
+    @media (max-width:768px){ .two{ grid-template-columns:1fr; } }
+  
+    table.cmp { width:100%; border-collapse:collapse; margin-top:16px; font-size:0.95rem; }
+    table.cmp th, table.cmp td { border:1px solid var(--border); padding:12px 14px; text-align:left; color:var(--text-secondary); vertical-align:top; }
+    table.cmp th { color:var(--text-primary); background:rgba(59,130,246,0.08); font-weight:700; }
+    table.cmp tr.pick td { color:var(--text-primary); background:rgba(59,130,246,0.06); }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    .two .card { margin-top:0; }
+    .card h3 { font-size:1.05rem; margin-bottom:10px; color:var(--text-primary); }
+    .note { font-size:0.9rem; color:var(--text-muted); margin-top:12px; }
+    .table-wrap { overflow-x:auto; }
+    .cover-placeholder { aspect-ratio:16/9; display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center; background:linear-gradient(135deg,#1e3a8a 0%,#4c1d95 100%); color:rgba(255,255,255,0.8); font-weight:600; }
+    .cover-placeholder i { font-size:3.5rem; }
+    @media (max-width:768px){ .two{ grid-template-columns:1fr; } }
   </style>
 </head>
-
 <body>
   <div class="container">
-
     <div class="topbar">
       <div class="topbar-inner">
-        <a href="../index.html" class="back">
-          <i class="fa-solid fa-arrow-left"></i> 프로젝트 목록
-        </a>
-
+        <a href="../index.html#projects" class="back"><i class="fa-solid fa-arrow-left"></i> 프로젝트 목록</a>
         <div class="actions">
-          <a class="btn" href="https://github.com/kwonminseok242" target="_blank" rel="noreferrer">
-            <i class="fa-brands fa-github"></i> GitHub
-          </a>
-          <a class="btn btn-primary" href="mailto:kwonminseok7364@naver.com">
-            <i class="fa-solid fa-paper-plane"></i> Contact
-          </a>
+          
+          <a class="btn" href="https://github.com/kwonminseok242" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a class="btn btn-primary" href="mailto:kwonminseok7364@naver.com"><i class="fa-solid fa-paper-plane"></i> Contact</a>
         </div>
       </div>
     </div>
-
     <header class="hero">
       <div class="hero-inner">
-        <div class="kicker">
-          <span class="dot" aria-hidden="true"></span> 
-          AI Agent · Compliance · Risk
-        </div>
-        
-        <h1>법정화폐기반 스테이블 코인 리스크 관리 AI Agent 개발</h1>
-        
-        <p class="sub">
-          리스크 평가 → 규제준수보고서 생성 → 증빙팩(원본/무결성 포함) 생성까지 한 흐름으로 연결하는 실무형 AI Agent.
-        </p>
-
-        <div class="chips">
-          <span class="chip">#Python</span>
-          <span class="chip">#FastAPI</span>
-          <span class="chip">#LangGraph</span>
-          <span class="chip">#LLM</span>
-          <span class="chip">#RAG</span>
-          <span class="chip">#Compliance</span>
-        </div>
-
-        <div class="meta">
-          <div class="item">
-            <strong>역할</strong>
-            AI Agent 설계/구현, 리스크 평가 질의 설계, 증빙팩 생성 파이프라인 구축
-          </div>
-          <div class="item">
-            <strong>키워드</strong>
-            규제준수 리포팅, 리스크 스코어링, 이벤트 추적/감사, 무결성 검증
-          </div>
-        </div>
-
-        <div class="cover">
-          <img src="../koscom.png" alt="코스콤 프로젝트 이미지" />
-        </div>
+        <div class="kicker"><span class="dot" aria-hidden="true"></span> KOSCOM AI Agent Challenge 2025 · 대상</div>
+        <h1>스테이블코인 리스크 관리 AI Agent</h1>
+        <p class="sub">정해지지 않은 대회 주제를 스테이블코인 리스크로 직접 제안하고, 질문 하나로 근거 리포트와 증빙팩까지 남기는 AI 에이전트를 만들었습니다.</p>
+        <div class="chips"><span class="chip">#AI_Agent</span><span class="chip">#MCP</span><span class="chip">#LangGraph</span><span class="chip">#FastAPI</span><span class="chip">#RAG</span><span class="chip">#LocalBlockchain</span><span class="chip">#MerkleTree</span></div>
+        <div class="meta"><div class="item"><strong>결과</strong>KOSCOM AI Agent Challenge 2025 <b>대상</b> (팀 단콤)</div><div class="item"><strong>팀 / 내 역할</strong>4인 팀 · 주제와 기능 기획, 로컬 블록체인 환경 단독 구현, 백엔드·인프라·MCP·대시보드</div></div>
+        <div class="cover"><img src="../koscom.png" alt="스테이블코인 리스크 관리 AI Agent 대표 이미지" /></div>
       </div>
     </header>
 
     <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-bullseye"></i>
-        <h2>Project Overview</h2>
-      </div>
-
-      <p>
-        법정화폐 기반 스테이블 코인은 <span class="mono">준비금(Reserve)</span>, <span class="mono">거래 흐름(Transaction)</span>,
-        <span class="mono">규제 준수(Compliance)</span> 관점의 리스크를 동시에 관리해야 합니다.
-        하지만 실무에서는 이벤트가 여러 시스템에 흩어져 있고, "왜 위험인지 / 어떤 근거로 판단했는지"를 빠르게 설명하고 
-        증빙까지 남기기가 어렵습니다.
-      </p>
-
-      <div class="card">
-        <span class="pill"><i class="fa-solid fa-shield-halved"></i> 목표</span>
-        <span class="pill"><i class="fa-solid fa-file-circle-check"></i> 증빙 자동화</span>
-        <span class="pill"><i class="fa-solid fa-chart-line"></i> 리스크 가시화</span>
-
-        <p style="margin-top:16px;">
-          본 프로젝트는 <b>리스크 평가 → 규제준수보고서 생성 → 증빙팩 자동 생성</b>까지
-          한 흐름으로 연결하는 <b>리스크 관리 AI Agent</b>를 구현했습니다.
-          사용자는 자연어로 질문하면, 에이전트가 필요한 데이터를 조회/요약하고 근거와 함께 리포트를 구성하며,
-          결과물을 대시보드에서 바로 다운로드할 수 있도록 설계했습니다.
-        </p>
-      </div>
+      <div class="section-title"><i class="fa-solid fa-bullseye"></i><h2>문제</h2></div>
+      <p>대회 공고의 주제는 <b>MCP 서버 기반 차세대 금융 AI Agent</b>였고, 무엇을 만들지는 팀이 정해야 했습니다. 한국은행 발표와 스테이블코인 도입 논의가 이어지고 있었지만, 국내에는 아직 명확한 법과 기준이 없었습니다.</p>
     </section>
-
     <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-screwdriver-wrench"></i>
-        <h2>Core Tasks</h2>
-      </div>
-
-      <ul>
-        <li><b>리스크 평가 질의/시나리오 설계</b> : 준비금 변동, 급격한 유출입, 비정상 패턴 등 분석 예시 질문 템플릿 구성</li>
-        <li><b>AI Agent 오케스트레이션</b> : <span class="mono">LangGraph</span> 기반 단계형 플로우(질문 이해 → 근거 수집 → 분석/요약 → 리포트 생성) 구현</li>
-        <li><b>규제준수 보고서 생성</b> : 리스크 요약, 근거(데이터 스냅샷/로그), 권고 액션 포함 보고서 포맷 자동 생성</li>
-        <li><b>증빙팩 생성</b> : 이벤트/거래 묶음에 대해 <span class="mono">JSON</span> 증빙팩 생성(원본/무결성 정보 포함) 및 다운로드 제공</li>
-        <li><b>대시보드 연동</b> : 생성된 보고서/증빙팩 목록 조회 및 다운로드 동선 정리</li>
-        <li><b>시각화</b> : 리스크 항목 우선순위 전달을 위해 랭크 그래프를 '규제준수보고서' 섹션에 집중 적용</li>
-      </ul>
+      <div class="section-title"><i class="fa-solid fa-scale-balanced"></i><h2>판단: 주제 후보 세 가지</h2></div>
+      <div class="table-wrap"><table class="cmp"><tr><th>후보</th><th>내용</th></tr><tr><td>A</td><td>플랫폼 엔지니어링을 통한 개발자 경험(DevEx) 최적화</td></tr><tr><td>B</td><td>제로 트러스트 기반 금융 보안 강화</td></tr><tr class="pick"><td>C (선택)</td><td>스테이블코인 거래 과정의 리스크를 AI로 탐지·관리</td></tr></table></div><p>저는 C를 제안했습니다. 계속 논의되는 주요 이슈라고 판단했고, <b>코스콤이 이 분야 사업을 한다면 어떻게 할지</b>를 기준으로 생각했습니다. 팀원들에게 스테이블코인과 과거 사건, 현재의 문제점을 직접 정리해 설명했고, 그 주제로 대회를 진행했습니다.</p>
     </section>
-
     <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-trophy"></i>
-        <h2>Results & Learnings</h2>
-      </div>
-
-      <p>
-        결과물은 리스크 판단의 <b>일관성</b>과 감사/대응을 위한 <b>설명 가능성</b>을 강화하는 데 초점을 맞췄습니다.
-        단순히 답변을 내는 챗봇이 아니라, <b>근거를 남기고(증빙)</b> <b>재검증 가능</b>한 형태로 산출물을 제공하도록 설계했습니다.
-      </p>
-
-      <ul>
-        <li><b>산출물 표준화</b> : 동일 질문에 대해 일관된 포맷으로 리스크 분석 결과 제공</li>
-        <li><b>감사 대응성</b> : 증빙팩에 원본 데이터/무결성 정보를 포함하여 판단 근거 추적 가능</li>
-        <li><b>Agent 설계 역량</b> : 조건 분기/툴 호출/단계 설계를 통해 실무형 워크플로우 구현</li>
-        <li><b>UX</b> : 생성물 목록 확인 → 다운로드까지 사용자 동선을 명확히 정리</li>
-      </ul>
-
-      <div class="card">
-        <p>
-          <b>개인적으로 배운 점</b><br/>
-          금융/컴플라이언스 문맥에서 "정답 생성"만으로는 부족하고,
-          <b>근거(데이터) → 판단(로직) → 증빙(무결성)</b>이 한 세트로 묶여야 한다는 점을 체감했습니다.
-          그래서 출력은 항상 <b>재현 가능</b>하고 <b>검증 가능</b>하도록 설계하는 방향으로 개선했습니다.
-        </p>
-      </div>
+      <div class="section-title"><i class="fa-solid fa-screwdriver-wrench"></i><h2>무엇을 만들었나</h2></div>
+      <p>준비금·거래·규제준수를 한 흐름으로 묶었습니다. 사용자가 자연어로 질문하면 에이전트가 데이터를 조회·요약하고, <b>근거 리포트와 증빙팩</b>을 남깁니다. 기준은 한국은행 자료를 참고하고, 정량 규격은 미국 지니어스 법안을 참조했습니다.</p><div class="two"><div class="card"><h3>내가 한 일</h3><ul><li><span>주제 제안과 기능 4개 기획, 기능별 분담 제안</span></li><li><span>로컬 블록체인 환경 단독 구현 (실제 네트워크 대신 완성도를 높이기 위한 판단)</span></li><li><span>백엔드, 인프라, MCP, 대시보드</span></li></ul></div><div class="card"><h3>팀이 한 일</h3><ul><li><span>Merkle tree 기반 무결성</span></li><li><span>리포트 생성 + RAG + 슬랙 자동 알림</span></li><li><span>온체인·오프체인 기록 관리</span></li></ul></div></div>
     </section>
-
-    <footer>
-      <p>&copy; 2025 Kwon Minseok. All rights reserved.</p>
-    </footer>
+    <section class="section">
+      <div class="section-title"><i class="fa-solid fa-flag"></i><h2>한계와 배운 점</h2></div>
+      <ul><li><span>실제 블록체인 네트워크는 비용과 정책 문제로 쓰지 못하고 <b>로컬 환경</b>에서 구현했습니다.</span></li><li><span>국내 법이 없어 지니어스 법안을 참조하거나 <b>가정</b>을 두고 진행했습니다. 한국 법 기준 설계는 아닙니다.</span></li><li><span>금융 AI는 답만 내는 것으로는 부족하고, <b>근거와 증빙을 함께 남겨야</b> 한다는 점을 설계로 옮겼습니다.</span></li></ul>
+    </section>
+    <footer><p>&copy; 2026 Kwon Minseok. All rights reserved.</p></footer>
   </div>
 </body>
 </html>

@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>반도체 OHT 센서 기반 탄화 예측 | 권민석</title>
-
+  <title>OHT 이송장치 열화 예측 | 권민석</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
   <style>
     :root {
       --bg-primary: #000000;
@@ -225,6 +223,29 @@
       border: 1px solid rgba(59, 130, 246, 0.2);
     }
 
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .meta .item {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      padding: 20px;
+      color: var(--text-secondary);
+    }
+
+    .meta .item strong {
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 1.125rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
     .cover {
       margin-top: 32px;
       border-radius: 20px;
@@ -310,6 +331,27 @@
       margin-bottom: 0;
     }
 
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--accent-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-right: 10px;
+      margin-bottom: 12px;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+    }
+
     footer {
       margin-top: 60px;
       padding: 40px 0;
@@ -328,6 +370,10 @@
         padding: 28px 20px;
       }
 
+      .meta {
+        grid-template-columns: 1fr;
+      }
+
       .actions {
         width: 100%;
       }
@@ -340,113 +386,72 @@
         font-size: 1.75rem;
       }
     }
+  
+    table.cmp { width:100%; border-collapse:collapse; margin-top:16px; font-size:0.95rem; }
+    table.cmp th, table.cmp td { border:1px solid var(--border); padding:12px 14px; text-align:left; color:var(--text-secondary); vertical-align:top; }
+    table.cmp th { color:var(--text-primary); background:rgba(59,130,246,0.08); font-weight:700; }
+    table.cmp tr.pick td { color:var(--text-primary); background:rgba(59,130,246,0.06); }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    .two .card { margin-top:0; }
+    .card h3 { font-size:1.05rem; margin-bottom:10px; color:var(--text-primary); }
+    .note { font-size:0.9rem; color:var(--text-muted); margin-top:12px; }
+    .table-wrap { overflow-x:auto; }
+    @media (max-width:768px){ .two{ grid-template-columns:1fr; } }
+  
+    table.cmp { width:100%; border-collapse:collapse; margin-top:16px; font-size:0.95rem; }
+    table.cmp th, table.cmp td { border:1px solid var(--border); padding:12px 14px; text-align:left; color:var(--text-secondary); vertical-align:top; }
+    table.cmp th { color:var(--text-primary); background:rgba(59,130,246,0.08); font-weight:700; }
+    table.cmp tr.pick td { color:var(--text-primary); background:rgba(59,130,246,0.06); }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    .two .card { margin-top:0; }
+    .card h3 { font-size:1.05rem; margin-bottom:10px; color:var(--text-primary); }
+    .note { font-size:0.9rem; color:var(--text-muted); margin-top:12px; }
+    .table-wrap { overflow-x:auto; }
+    .cover-placeholder { aspect-ratio:16/9; display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center; background:linear-gradient(135deg,#1e3a8a 0%,#4c1d95 100%); color:rgba(255,255,255,0.8); font-weight:600; }
+    .cover-placeholder i { font-size:3.5rem; }
+    @media (max-width:768px){ .two{ grid-template-columns:1fr; } }
   </style>
 </head>
-
 <body>
   <div class="container">
-
     <div class="topbar">
       <div class="topbar-inner">
-        <a href="../index.html" class="back">
-          <i class="fa-solid fa-arrow-left"></i> 프로젝트 목록
-        </a>
-
+        <a href="../index.html#projects" class="back"><i class="fa-solid fa-arrow-left"></i> 프로젝트 목록</a>
         <div class="actions">
-          <a class="btn" href="https://github.com/kwonminseok242" target="_blank" rel="noreferrer">
-            <i class="fa-brands fa-github"></i> GitHub
-          </a>
-          <a class="btn btn-primary" href="mailto:kwonminseok7364@naver.com">
-            <i class="fa-solid fa-paper-plane"></i> Contact
-          </a>
+          <a class="btn" href="https://github.com/kwonminseok242/Final_Version_for_the_Spring_Conference" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> Repo</a>
+          <a class="btn" href="https://github.com/kwonminseok242" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a class="btn btn-primary" href="mailto:kwonminseok7364@naver.com"><i class="fa-solid fa-paper-plane"></i> Contact</a>
         </div>
       </div>
     </div>
-
     <header class="hero">
       <div class="hero-inner">
-        <div class="kicker">
-          <span class="dot" aria-hidden="true"></span> 
-          Semiconductor · Sensor · Prediction
-        </div>
-        
-        <h1>반도체 OHT 이송장치 센서 기반 탄화 예측 시스템</h1>
-        
-        <p class="sub">
-          OHT 장치 센서 데이터를 분석해 고장 전조 신호(탄화)를 조기에 감지하고, 운영/모니터링 관점까지 고려한 예측 시스템을 목표로 했습니다.
-        </p>
-
-        <div class="chips">
-          <span class="chip">#Python</span>
-          <span class="chip">#PyTorch</span>
-          <span class="chip">#TimeSeries</span>
-          <span class="chip">#PredictiveMaintenance</span>
-          <span class="chip">#Monitoring</span>
-        </div>
-
-        <div class="cover">
-          <img src="../indust.png" alt="반도체 OHT 프로젝트 이미지" />
-        </div>
+        <div class="kicker"><span class="dot" aria-hidden="true"></span> 대한산업공학회 춘계공동학술대회 논문집 등재</div>
+        <h1>OHT 이송장치 열화 예측: 세 모델 비교와 TCN 선택</h1>
+        <p class="sub">반도체 공정의 웨이퍼 이송장치(OHT) 센서 데이터로 미래 센서값을 예측했습니다. 오차가 가장 낮은 모델이 아니라, 실시간 감시에 맞는 모델을 골랐습니다.</p>
+        <div class="chips"><span class="chip">#PyTorch</span><span class="chip">#TimeSeries</span><span class="chip">#TCN</span><span class="chip">#Optuna</span><span class="chip">#PredictiveMaintenance</span></div>
+        <div class="meta"><div class="item"><strong>팀 / 기간</strong>학생 6인 팀 연구 · 2025.03 ~ 2025.06</div><div class="item"><strong>내 역할</strong>TCN 개발·파인튜닝, 예측 센서값 기반 상태 분류 대시보드</div></div>
+        <div class="cover"><img src="../indust.png" alt="OHT 이송장치 열화 예측: 세 모델 비교와 TCN 선택 대표 이미지" /></div>
       </div>
     </header>
 
     <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-bullseye"></i>
-        <h2>Project Overview</h2>
-      </div>
-
-      <p>
-        반도체 생산라인에서 웨이퍼를 이송하는 OHT 장비는 공정 안정성과 직결됩니다.
-        이 프로젝트는 OHT 장치의 센서 데이터를 기반으로 고장 전조 현상인 <b>탄화</b>를 예측하고,
-        현업에서 활용 가능한 형태(모니터링/알림/리포트)에 가까운 결과를 목표로 했습니다.
-      </p>
-
-      <div class="card">
-        <p>
-          <b>핵심 포인트</b><br/>
-          (1) 센서 시계열 전처리/피처 설계 → (2) 예측 모델링 → (3) 결과 해석/운영 적용(모니터링 관점)까지 일관된 흐름으로 구성
-        </p>
-      </div>
+      <div class="section-title"><i class="fa-solid fa-bullseye"></i><h2>문제</h2></div>
+      <p>OHT는 시간이 지나면 열화가 생기고, 고장 나면 공정 손실이 큽니다. 열화는 한 시점의 값이 아니라 일정 기간의 패턴으로 드러나기 때문에 시계열 모델이 필요했습니다. 데이터는 AI-Hub 공개 데이터 「제조현장 이송장치의 열화 예지보전 멀티모달 데이터셋」의 온도·전류·미세먼지 센서이며, 상태를 바로 분류하는 대신 <b>미래 시점의 센서값을 예측</b>하는 문제로 잡았습니다.</p>
     </section>
-
     <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-screwdriver-wrench"></i>
-        <h2>Core Tasks</h2>
-      </div>
-
-      <ul>
-        <li><b>데이터 수집/정합</b> : 장비 센서 로그를 분석 단위로 맞추고 결측/노이즈를 처리</li>
-        <li><b>전처리/피처링</b> : 시계열 특성을 반영한 윈도잉, 통계/추세 기반 피처 생성</li>
-        <li><b>모델링 전략</b> : 탄화 발생 전후 패턴 차이를 포착할 수 있도록 예측/분류 접근을 설계</li>
-        <li><b>성능 평가</b> : 운영 관점에서 중요한 지표(조기 탐지/오탐 최소화)를 중심으로 평가 프레임 구성</li>
-        <li><b>결과 커뮤니케이션</b> : 원인 추정/패턴 설명이 가능하도록 주요 신호를 요약하고 리포트 형태로 정리</li>
-      </ul>
+      <div class="section-title"><i class="fa-solid fa-scale-balanced"></i><h2>판단: 세 모델 비교</h2></div>
+      <div class="table-wrap"><table class="cmp"><tr><th>모델</th><th>평균 MSE</th><th>epoch당 시간</th><th>실시간성</th><th>판단</th></tr><tr class="pick"><td>TCN (선택)</td><td>0.9879</td><td>약 1분</td><td>우수</td><td>빠르고 구조가 단순해 실시간 적용에 적합</td></tr><tr><td>Informer</td><td>0.4470</td><td>약 14분</td><td>낮음</td><td>오차는 가장 낮지만 느리고 복잡</td></tr><tr><td>MTAD-GAN</td><td>재구성 기준이라 직접 비교 불가</td><td>약 10분</td><td>매우 낮음</td><td>이상 탐지 모델이라 목적(수치 예측)과 다름</td></tr></table></div><p>오차만 보면 Informer가 가장 좋았지만, 목표는 <b>현장에서 실시간으로 감시하는 것</b>이었습니다. 그래서 정확도 1위가 아닌 TCN을 골랐습니다.</p>
     </section>
-
     <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-trophy"></i>
-        <h2>Results & Learnings</h2>
-      </div>
-
-      <p>
-        본 프로젝트를 통해 "모델 정확도"뿐 아니라,
-        실제 현장에서 쓰이려면 데이터 품질/지표 정의/운영 프로세스(모니터링·알림)까지 함께 설계되어야 한다는 점을 배웠습니다.
-      </p>
-
-      <div class="card">
-        <p>
-          <b>추가로 넣으면 더 강력해지는 항목</b><br/>
-          여기 섹션에 네가 가진 실제 수치(예: 조기탐지 리드타임, 정밀도/재현율, 오탐률 감소 등) 2~3개만 넣으면 포트폴리오 완성도가 확 올라가.
-        </p>
-      </div>
+      <div class="section-title"><i class="fa-solid fa-screwdriver-wrench"></i><h2>내가 한 일</h2></div>
+      <ul><li><span>TCN 직접 구현: Residual 블록 기반 Dilated 1D CNN, 50개 시점으로 18개 시점 뒤 센서값 예측</span></li><li><span>분류 단계에서 정확도가 낮아, 데이터가 적은 상태에 클래스 가중치를 주고 Optuna로 학습률·드롭아웃·채널 구성을 탐색(20회)</span></li><li><span>예측한 센서값 7개를 로지스틱 회귀로 정상·관심·경고·위험 4단계로 분류해 보여 주는 대시보드(Tkinter)</span></li></ul><p>Informer·MTAD-GAN 개발과 평가, 논문 작성은 팀원들과 나눠 진행했습니다.</p>
     </section>
-
-    <footer>
-      <p>&copy; 2025 Kwon Minseok. All rights reserved.</p>
-    </footer>
+    <section class="section">
+      <div class="section-title"><i class="fa-solid fa-flag"></i><h2>한계와 배운 점</h2></div>
+      <ul><li><span>제한된 시간과 자원 안에서 모델 간 차이의 통계적 유의성은 검증하지 못했습니다. 반복 실험과 신뢰구간 분석이 다음 과제입니다.</span></li><li><span>공개 데이터로 한 연구이며, 실제 설비에 적용하지는 않았습니다.</span></li><li><span>가장 정확한 모델이 항상 정답은 아니고, <b>쓰일 환경</b>을 함께 봐야 한다는 점을 배웠습니다.</span></li></ul>
+    </section>
+    <footer><p>&copy; 2026 Kwon Minseok. All rights reserved.</p></footer>
   </div>
 </body>
 </html>
