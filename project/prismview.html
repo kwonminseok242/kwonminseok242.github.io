@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrismView: 직접 만든 지표 검증과 차트 도구 | 권민석</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg-primary: #000000;
+      --bg-secondary: #0a0a0a;
+      --bg-card: rgba(255, 255, 255, 0.02);
+      --border: rgba(255, 255, 255, 0.05);
+      --accent-primary: #3b82f6;
+      --accent-secondary: #8b5cf6;
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-primary);
+      line-height: 1.6;
+      background: var(--bg-primary);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container { 
+      max-width: 980px; 
+      margin: 0 auto; 
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation */
+    .topbar {
+      position: sticky;
+      top: 20px;
+      z-index: 50;
+      margin: 20px 0 40px;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(20px);
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .back:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border-color: var(--accent-primary);
+      transform: translateX(-4px);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 44px;
+      padding: 0 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-weight: 600;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: white;
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 12px 32px rgba(59, 130, 246, 0.4);
+    }
+
+    /* Hero Section */
+    .hero {
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(600px 300px at 20% 10%, rgba(59, 130, 246, 0.1), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      padding: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-bottom: 24px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-primary);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      font-weight: 900;
+    }
+
+    .sub {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      line-height: 1.7;
+      max-width: 80ch;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: var(--accent-primary);
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .meta .item {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      padding: 20px;
+      color: var(--text-secondary);
+    }
+
+    .meta .item strong {
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 1.125rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .cover {
+      margin-top: 32px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .cover img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 32px;
+      padding: 40px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .section-title i {
+      color: var(--accent-primary);
+      font-size: 1.5rem;
+    }
+
+    .section-title h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    li {
+      display: flex;
+      gap: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    li::before {
+      content: "▹";
+      color: var(--accent-primary);
+      font-weight: bold;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .card {
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .card p {
+      margin-bottom: 12px;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--accent-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-right: 10px;
+      margin-bottom: 12px;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 40px 0;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.9375rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner {
+        padding: 32px 24px;
+      }
+
+      .section {
+        padding: 28px 20px;
+      }
+
+      .meta {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .btn {
+        flex: 1;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+    }
+  
+    table.cmp { width:100%; border-collapse:collapse; margin-top:16px; font-size:0.95rem; }
+    table.cmp th, table.cmp td { border:1px solid var(--border); padding:12px 14px; text-align:left; color:var(--text-secondary); vertical-align:top; }
+    table.cmp th { color:var(--text-primary); background:rgba(59,130,246,0.08); font-weight:700; }
+    table.cmp tr.pick td { color:var(--text-primary); background:rgba(59,130,246,0.06); }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    .two .card { margin-top:0; }
+    .card h3 { font-size:1.05rem; margin-bottom:10px; color:var(--text-primary); }
+    .note { font-size:0.9rem; color:var(--text-muted); margin-top:12px; }
+    .table-wrap { overflow-x:auto; }
+    @media (max-width:768px){ .two{ grid-template-columns:1fr; } }
+  
+    table.cmp { width:100%; border-collapse:collapse; margin-top:16px; font-size:0.95rem; }
+    table.cmp th, table.cmp td { border:1px solid var(--border); padding:12px 14px; text-align:left; color:var(--text-secondary); vertical-align:top; }
+    table.cmp th { color:var(--text-primary); background:rgba(59,130,246,0.08); font-weight:700; }
+    table.cmp tr.pick td { color:var(--text-primary); background:rgba(59,130,246,0.06); }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    .two .card { margin-top:0; }
+    .card h3 { font-size:1.05rem; margin-bottom:10px; color:var(--text-primary); }
+    .note { font-size:0.9rem; color:var(--text-muted); margin-top:12px; }
+    .table-wrap { overflow-x:auto; }
+    .cover-placeholder { aspect-ratio:16/9; display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center; background:linear-gradient(135deg,#1e3a8a 0%,#4c1d95 100%); color:rgba(255,255,255,0.8); font-weight:600; }
+    .cover-placeholder i { font-size:3.5rem; }
+    @media (max-width:768px){ .two{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <a href="../index.html#projects" class="back"><i class="fa-solid fa-arrow-left"></i> 프로젝트 목록</a>
+        <div class="actions">
+          <a class="btn" href="https://github.com/PrismView/prismview-collector" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> Repo</a>
+          <a class="btn" href="https://github.com/kwonminseok242" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a class="btn btn-primary" href="mailto:kwonminseok7364@naver.com"><i class="fa-solid fa-paper-plane"></i> Contact</a>
+        </div>
+      </div>
+    </div>
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="kicker"><span class="dot" aria-hidden="true"></span> 개인 프로젝트 · 진행 중</div>
+        <h1>PrismView: 감이 아니라 검증으로 매매하기</h1>
+        <p class="sub">시간과 감정이 드는 수동 매매 대신, 직접 만든 지표(ICE)를 규칙으로 만들어 백테스트로 검증했습니다. 2026년 10월부터는 차트 도구 PrismView를 Java로 혼자 다시 만들고 있습니다.</p>
+        <div class="chips"><span class="chip">#Java</span><span class="chip">#SpringBoot</span><span class="chip">#PostgreSQL</span><span class="chip">#Flyway</span><span class="chip">#Docker</span><span class="chip">#PineScript</span></div>
+        <div class="meta"><div class="item"><strong>기간</strong>지표 제작·검증 2024 ~ · PrismView 재시작 2026.10 ~ 진행 중</div><div class="item"><strong>역할</strong>개인 프로젝트 (기획·개발 전부)</div></div>
+        <!-- 사진 넣을 자리: 이미지를 저장소 루트에 prismview.png 로 올린 뒤, 아래 div를 <div class="cover"><img src="../prismview.png" alt="PrismView: 감이 아니라 검증으로 매매하기 대표 이미지" /></div> 로 바꾸세요 -->
+        <div class="cover cover-placeholder"><i class="fa-solid fa-chart-column" aria-hidden="true"></i><span>이미지 준비 중</span></div>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="section-title"><i class="fa-solid fa-scale-balanced"></i><h2>판단: 수동 매매 vs 규칙화·검증</h2></div>
+      <p>20살부터 매매를 하며 가장 크게 느낀 것은 시간의 제약, 그다음은 감정 소모였습니다. 그래서 직접 만든 데이터 기반 기술적 지표 <b>ICE(Inception Core eXtension)</b>를 규칙으로 옮기고, 트레이딩뷰에서 Pine Script로 백테스트해 검증하는 쪽을 택했습니다. 이 과정에서 코딩을 더 공부하게 됐고 금융권 개발로 진로를 정했습니다.</p>
+    </section>
+    <section class="section">
+      <div class="section-title"><i class="fa-solid fa-vial"></i><h2>백테스트 결과 (짧은 기간)</h2></div>
+      <div class="table-wrap"><table class="cmp"><tr><th>항목</th><th>값</th></tr><tr><td>기간</td><td>2026.02.13 ~ 2026.02.21 (9일)</td></tr><tr><td>총 거래</td><td>99건</td></tr><tr><td>수익성 거래 비율</td><td>78.79% (78/99)</td></tr><tr><td>총 손익</td><td>+4.74%</td></tr><tr><td>최대 자본 감소</td><td>2.14%</td></tr></table></div><p><b>백테스트 결과이며 실거래 성과가 아닙니다.</b> 기간이 9일로 아주 짧아 충분히 검증됐다고 보기 어렵고, 더 긴 기간으로 다시 검증하는 것이 다음 과제입니다.</p>
+    </section>
+    <section class="section">
+      <div class="section-title"><i class="fa-solid fa-screwdriver-wrench"></i><h2>지금 만들고 있는 것</h2></div>
+      <ul><li><span>OKX 1초 캔들 수집기와 30초 집계기 (Java, Spring Boot, PostgreSQL)</span></li><li><span>docker-compose로 PostgreSQL 구성, Flyway로 테이블 관리, 프로필별 DB 설정</span></li><li><span>이슈 → 브랜치 → PR 단위로 작업 기록</span></li><li><span>처음 뼈대는 Cursor로 만들었다가 지우고, 직접 하나씩 구현 중</span></li></ul><p>현재는 수집기와 DB 테이블의 뼈대 단계입니다. Java로 만드는 이유는 금융 시스템에서 많이 쓰는 Java 경험을 채우기 위해서입니다.</p>
+    </section>
+    <section class="section">
+      <div class="section-title"><i class="fa-solid fa-flag"></i><h2>한계와 배운 점</h2></div>
+      <ul><li><span>2024년부터 계획했지만 실력과 시간이 부족해 오래 이어가지 못했습니다.</span></li><li><span>다시 한다면 <b>무엇을 만들고 싶은지부터 확실히 정하겠습니다.</b> 그게 정해지지 않아 미뤄진 일이 가장 많았습니다.</span></li></ul>
+    </section>
+    <footer><p>&copy; 2026 Kwon Minseok. All rights reserved.</p></footer>
+  </div>
+</body>
+</html>

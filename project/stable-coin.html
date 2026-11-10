@@ -397,6 +397,19 @@
     .note { font-size:0.9rem; color:var(--text-muted); margin-top:12px; }
     .table-wrap { overflow-x:auto; }
     @media (max-width:768px){ .two{ grid-template-columns:1fr; } }
+  
+    table.cmp { width:100%; border-collapse:collapse; margin-top:16px; font-size:0.95rem; }
+    table.cmp th, table.cmp td { border:1px solid var(--border); padding:12px 14px; text-align:left; color:var(--text-secondary); vertical-align:top; }
+    table.cmp th { color:var(--text-primary); background:rgba(59,130,246,0.08); font-weight:700; }
+    table.cmp tr.pick td { color:var(--text-primary); background:rgba(59,130,246,0.06); }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    .two .card { margin-top:0; }
+    .card h3 { font-size:1.05rem; margin-bottom:10px; color:var(--text-primary); }
+    .note { font-size:0.9rem; color:var(--text-muted); margin-top:12px; }
+    .table-wrap { overflow-x:auto; }
+    .cover-placeholder { aspect-ratio:16/9; display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center; background:linear-gradient(135deg,#1e3a8a 0%,#4c1d95 100%); color:rgba(255,255,255,0.8); font-weight:600; }
+    .cover-placeholder i { font-size:3.5rem; }
+    @media (max-width:768px){ .two{ grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -416,7 +429,7 @@
         <div class="kicker"><span class="dot" aria-hidden="true"></span> KOSCOM AI Agent Challenge 2025 · 대상</div>
         <h1>스테이블코인 리스크 관리 AI Agent</h1>
         <p class="sub">정해지지 않은 대회 주제를 스테이블코인 리스크로 직접 제안하고, 질문 하나로 근거 리포트와 증빙팩까지 남기는 AI 에이전트를 만들었습니다.</p>
-        <div class="chips"><span class="chip">#AI_Agent</span><span class="chip">#MCP</span><span class="chip">#RAG</span><span class="chip">#LocalBlockchain</span><span class="chip">#MerkleTree</span><span class="chip">#Compliance</span></div>
+        <div class="chips"><span class="chip">#AI_Agent</span><span class="chip">#MCP</span><span class="chip">#LangGraph</span><span class="chip">#FastAPI</span><span class="chip">#RAG</span><span class="chip">#LocalBlockchain</span><span class="chip">#MerkleTree</span></div>
         <div class="meta"><div class="item"><strong>결과</strong>KOSCOM AI Agent Challenge 2025 <b>대상</b> (팀 단콤)</div><div class="item"><strong>팀 / 내 역할</strong>4인 팀 · 주제와 기능 기획, 로컬 블록체인 환경 단독 구현, 백엔드·인프라·MCP·대시보드</div></div>
         <div class="cover"><img src="../koscom.png" alt="스테이블코인 리스크 관리 AI Agent 대표 이미지" /></div>
       </div>
