@@ -3,392 +3,442 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>INSIDE_UP (OpenAI & KoBERT) | 권민석</title>
-
+  <title>INSIDE_UP: 청소년 감정 챗봇 | 권민석</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
   <style>
-    :root{
-      --bg: hsl(222 47% 7%);
-      --surface: hsl(222 47% 11% / .86);
-      --surface2: hsl(222 35% 15% / .70);
-      --border: hsl(210 20% 98% / .10);
-      --text: hsl(210 40% 96%);
-      --muted: hsl(215 16% 70%);
-      --muted2: hsl(215 14% 55%);
-      --accent: hsl(190 95% 45%);
-      --accent2: hsl(270 95% 65%);
-      --shadow: 0 20px 60px hsl(220 50% 2% / .45);
-      --shadowSoft: 0 10px 30px hsl(220 50% 2% / .35);
-      --radius: 20px;
-      --max: 980px;
-      --pad: 22px;
-      --sans: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, 'Noto Sans KR', sans-serif;
-      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    :root {
+      --bg-primary: #000000;
+      --bg-secondary: #0a0a0a;
+      --bg-card: rgba(255, 255, 255, 0.02);
+      --border: rgba(255, 255, 255, 0.05);
+      --accent-primary: #3b82f6;
+      --accent-secondary: #8b5cf6;
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
     }
 
-    *{box-sizing:border-box; margin:0; padding:0;}
-    html{scroll-behavior:smooth;}
-    body{
-      font-family: var(--sans);
-      color: var(--text);
-      line-height: 1.75;
-      background:
-        radial-gradient(1100px 600px at 10% 10%, hsl(190 95% 45% / .14), transparent 60%),
-        radial-gradient(900px 500px at 90% 20%, hsl(270 95% 65% / .12), transparent 60%),
-        radial-gradient(900px 600px at 40% 120%, hsl(190 95% 45% / .10), transparent 55%),
-        var(--bg);
-      padding: 28px 0 60px;
-      overflow-x:hidden;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-primary);
+      line-height: 1.6;
+      background: var(--bg-primary);
+      overflow-x: hidden;
     }
 
-    body::before{
-      content:"";
+    body::before {
+      content: '';
       position: fixed;
-      inset:0;
-      pointer-events:none;
-      background-image:
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="140" height="140" filter="url(%23n)" opacity="0.06"/></svg>');
-      mix-blend-mode: overlay;
-      opacity: .55;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    a{color:inherit; text-decoration:none;}
-    img{max-width:100%; display:block;}
-    .container{max-width: var(--max); margin:0 auto; padding: 0 var(--pad);}
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
-    .topbar{position: sticky; top: 16px; z-index: 50; margin-bottom: 18px;}
-    .topbar-inner{
-      display:flex; align-items:center; justify-content:space-between; gap: 12px;
-      padding: 12px; border-radius: 18px;
-      border: 1px solid hsl(210 20% 98% / .08);
-      background: hsl(222 47% 8% / .62);
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadowSoft);
-    }
-    .back{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 12px; border-radius: 14px;
-      border: 1px solid var(--border);
-      background: hsl(210 20% 98% / .04);
-      color: var(--muted);
-      font-weight: 800;
-      transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
-    }
-    .back:hover{transform: translateY(-1px); background: hsl(210 20% 98% / .08); color: var(--text); border-color: hsl(190 95% 45% / .35);}
-
-    .actions{display:flex; gap: 10px; align-items:center; flex-wrap:wrap;}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      height: 40px; padding: 0 12px; border-radius: 14px;
-      border: 1px solid var(--border);
-      background: hsl(210 20% 98% / .04);
-      color: var(--text);
-      font-weight: 800;
-      transition: transform .2s ease, background .2s ease, border-color .2s ease;
-      white-space: nowrap;
-    }
-    .btn:hover{transform: translateY(-1px); background: hsl(210 20% 98% / .08); border-color: hsl(190 95% 45% / .35);}
-    .btn-primary{
-      border-color: transparent;
-      background: linear-gradient(135deg, hsl(190 95% 45% / .95), hsl(270 95% 65% / .95));
-      color: hsl(222 47% 8%);
-      box-shadow: 0 16px 40px hsl(190 95% 45% / .18);
-    }
-    .btn-primary:hover{transform: translateY(-2px);}
-
-    .hero{
-      border-radius: var(--radius);
-      border: 1px solid hsl(210 20% 98% / .08);
-      background: linear-gradient(180deg, var(--surface), var(--surface2));
-      box-shadow: var(--shadowSoft);
-      overflow:hidden;
+    .container { 
+      max-width: 980px; 
+      margin: 0 auto; 
+      padding: 0 24px;
       position: relative;
+      z-index: 1;
     }
-    .hero::after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background: radial-gradient(520px 260px at 15% 10%, hsl(190 95% 45% / .16), transparent 60%);
-      pointer-events:none;
+
+    /* Navigation */
+    .topbar {
+      position: sticky;
+      top: 20px;
+      z-index: 50;
+      margin: 20px 0 40px;
     }
-    .hero-inner{padding: 22px;}
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 8px 12px;
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(20px);
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .back:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border-color: var(--accent-primary);
+      transform: translateX(-4px);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 44px;
+      padding: 0 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-weight: 600;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: white;
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 12px 32px rgba(59, 130, 246, 0.4);
+    }
+
+    /* Hero Section */
+    .hero {
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(600px 300px at 20% 10%, rgba(59, 130, 246, 0.1), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      padding: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
       border-radius: 999px;
-      border: 1px solid hsl(210 20% 98% / .08);
-      background: hsl(210 20% 98% / .04);
-      color: var(--muted);
-      font-weight: 800;
-      width: fit-content;
-      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-bottom: 24px;
     }
-    .dot{
-      width: 8px; height: 8px; border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px hsl(190 95% 45% / .12);
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-primary);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+      animation: pulse 2s ease-in-out infinite;
     }
-    h1{
-      font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
       letter-spacing: -0.02em;
-      line-height: 1.15;
-      margin-bottom: 12px;
-    }
-    .sub{color: var(--muted); font-size: 1.05rem; max-width: 85ch;}
-
-    .chips{display:flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;}
-    .chip{
-      font-family: var(--mono);
-      font-size: .82rem;
-      padding: 7px 10px;
-      border-radius: 999px;
-      color: hsl(190 95% 45%);
-      background: hsl(190 95% 45% / .10);
-      border: 1px solid hsl(190 95% 45% / .18);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      font-weight: 900;
     }
 
-    .cover{
-      margin-top: 16px;
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid hsl(210 20% 98% / .10);
+    .sub {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      line-height: 1.7;
+      max-width: 80ch;
     }
-    .cover img{
-      width:100%;
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: var(--accent-primary);
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .meta .item {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      padding: 20px;
+      color: var(--text-secondary);
+    }
+
+    .meta .item strong {
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 1.125rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .cover {
+      margin-top: 32px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .cover img {
+      width: 100%;
       aspect-ratio: 16 / 9;
       object-fit: cover;
-      filter: saturate(1.05) contrast(1.05);
     }
 
-    .section{
-      margin-top: 18px;
-      padding: 20px;
-      border-radius: var(--radius);
-      border: 1px solid hsl(210 20% 98% / .08);
-      background: linear-gradient(180deg, var(--surface), var(--surface2));
-      box-shadow: var(--shadowSoft);
+    /* Sections */
+    .section {
+      margin-bottom: 32px;
+      padding: 40px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
     }
-    .section-title{
-      display:flex;
-      align-items:center;
+
+    .section-title {
+      display: flex;
+      align-items: center;
       gap: 12px;
-      margin-bottom: 12px;
-      color: var(--text);
-    }
-    .section-title i{color: var(--accent);}
-    .section-title h2{font-size: 1.25rem; letter-spacing: -0.02em;}
-    .line{height: 1px; flex: 1; background: linear-gradient(90deg, hsl(210 20% 98% / .14), transparent);}
-
-    p{color: var(--muted); margin: 0 0 12px; font-size: 1.02rem;}
-    ul{list-style:none; margin-top: 10px;}
-    li{display:flex; gap:10px; color: var(--muted); margin-bottom: 10px;}
-    li::before{content:"•"; color: var(--accent); font-weight: 900;}
-
-    .card{
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid hsl(210 20% 98% / .08);
-      background: hsl(210 20% 98% / .04);
-      color: var(--muted);
+      margin-bottom: 24px;
+      color: var(--text-primary);
     }
 
-    .mono{
-      font-family: var(--mono);
-      font-size: .95rem;
-      color: hsl(210 40% 92%);
-      background: hsl(222 47% 6% / .45);
-      border: 1px solid hsl(210 20% 98% / .10);
-      border-radius: 14px;
-      padding: 14px;
-      overflow-x:auto;
+    .section-title i {
+      color: var(--accent-primary);
+      font-size: 1.5rem;
+    }
+
+    .section-title h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      font-size: 1.0625rem;
       line-height: 1.7;
-      margin-top: 12px;
     }
 
-    footer{
-      margin-top: 28px;
-      padding: 26px 0 0;
-      color: var(--muted2);
-      border-top: 1px solid hsl(210 20% 98% / .06);
-      text-align:center;
-      font-size: .92rem;
+    ul {
+      list-style: none;
+      margin-top: 16px;
     }
+
+    li {
+      display: flex;
+      gap: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    li::before {
+      content: "▹";
+      color: var(--accent-primary);
+      font-weight: bold;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .card {
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .card p {
+      margin-bottom: 12px;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--accent-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-right: 10px;
+      margin-bottom: 12px;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 40px 0;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.9375rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner {
+        padding: 32px 24px;
+      }
+
+      .section {
+        padding: 28px 20px;
+      }
+
+      .meta {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .btn {
+        flex: 1;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+    }
+  
+    table.cmp { width:100%; border-collapse:collapse; margin-top:16px; font-size:0.95rem; }
+    table.cmp th, table.cmp td { border:1px solid var(--border); padding:12px 14px; text-align:left; color:var(--text-secondary); vertical-align:top; }
+    table.cmp th { color:var(--text-primary); background:rgba(59,130,246,0.08); font-weight:700; }
+    table.cmp tr.pick td { color:var(--text-primary); background:rgba(59,130,246,0.06); }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    .two .card { margin-top:0; }
+    .card h3 { font-size:1.05rem; margin-bottom:10px; color:var(--text-primary); }
+    .note { font-size:0.9rem; color:var(--text-muted); margin-top:12px; }
+    .table-wrap { overflow-x:auto; }
+    @media (max-width:768px){ .two{ grid-template-columns:1fr; } }
   </style>
 </head>
-
 <body>
   <div class="container">
-
     <div class="topbar">
       <div class="topbar-inner">
-        <a href="../index.html" class="back">
-          <i class="fa-solid fa-arrow-left"></i> 프로젝트 목록
-        </a>
-
+        <a href="../index.html#projects" class="back"><i class="fa-solid fa-arrow-left"></i> 프로젝트 목록</a>
         <div class="actions">
-          <a class="btn" href="https://github.com/kwonminseok242" target="_blank" rel="noreferrer">
-            <i class="fa-brands fa-github"></i> GitHub
-          </a>
-          <a class="btn btn-primary" href="mailto:kwonminseok7364@naver.com">
-            <i class="fa-solid fa-paper-plane"></i> Contact
-          </a>
+          
+          <a class="btn" href="https://github.com/kwonminseok242" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a class="btn btn-primary" href="mailto:kwonminseok7364@naver.com"><i class="fa-solid fa-paper-plane"></i> Contact</a>
         </div>
       </div>
     </div>
-
     <header class="hero">
       <div class="hero-inner">
-        <div class="kicker"><span class="dot" aria-hidden="true"></span> INSIDE_UP · NLP · K-PaaS</div>
-
-        <h1>OpenAI &amp; KoBERT 기반 청소년 정서 보조 앱 (INSIDE_UP)</h1>
-        <p class="sub">
-          청소년이 감정을 가볍게 기록하고, AI 대화로 감정을 정리하며 주간 리포트로 인사이트를 제공하는 정서 보조 앱.
-          KoBERT 감성분석 + OpenAI 기반 챗봇 + K-PaaS(Kubernetes) 배포까지 운영 가능한 형태로 구성했습니다.
-        </p>
-
-        <div class="chips">
-          <span class="chip">#OpenAI</span>
-          <span class="chip">#KoBERT</span>
-          <span class="chip">#FastAPI</span>
-          <span class="chip">#MySQL</span>
-          <span class="chip">#Redis</span>
-          <span class="chip">#Kubernetes</span>
-          <span class="chip">#K-PaaS</span>
-          <span class="chip">#Ingress</span>
-        </div>
-
-        <div class="cover">
-          <img src="../k-paas.png" alt="INSIDE_UP 프로젝트 이미지" />
-        </div>
+        <div class="kicker"><span class="dot" aria-hidden="true"></span> 경영공학과 학술제 최우수 학술발표상</div>
+        <h1>INSIDE_UP: 청소년이 자기 감정을 알아차리게 돕는 챗봇</h1>
+        <p class="sub">감정 기록, KoBERT 감정 분류, OpenAI 챗봇, 주간 리포트를 묶은 앱입니다. 구현부터 서두르다 먼 길을 돈 실패와, 그 뒤 일하는 방식을 바꾼 경험이 담긴 프로젝트입니다.</p>
+        <div class="chips"><span class="chip">#KoBERT</span><span class="chip">#OpenAI</span><span class="chip">#FastAPI</span><span class="chip">#Flutter</span><span class="chip">#Kubernetes</span><span class="chip">#K-PaaS</span></div>
+        <div class="meta"><div class="item"><strong>결과</strong>경영공학과 학술제 최우수 학술발표상 · K-PaaS 공모전 예선 통과, 본선 탈락</div><div class="item"><strong>팀 / 내 역할</strong>4인 팀 · 프론트 단독 제작, 백엔드 대부분, 감정일기·커뮤니티·리포트, 감정온도</div></div>
+        <div class="cover"><img src="../k-paas.png" alt="INSIDE_UP: 청소년이 자기 감정을 알아차리게 돕는 챗봇 대표 이미지" /></div>
       </div>
     </header>
 
     <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-bullseye"></i>
-        <h2>Project Overview</h2>
-        <div class="line" aria-hidden="true"></div>
-      </div>
-
-      <p>
-        <b>INSIDE_UP</b>은 청소년이 일상에서 느끼는 스트레스/불안/우울 같은 감정을
-        <b>가볍게 기록</b>하고, AI가 대화를 통해 감정을 정리해주며
-        <b>주간 리포트 형태로 인사이트</b>를 제공하는 정서 보조 앱입니다.
-      </p>
-      <p>
-        단순 “상담 대화”에 그치지 않고,
-        <b>KoBERT 감성분석</b>으로 텍스트의 정서 경향을 정량화하고
-        <b>OpenAI 기반 챗봇</b>으로 공감/질문/행동 제안을 구성해
-        사용자가 스스로 상태를 파악하고 회복 루틴을 만들도록 설계했습니다.
-      </p>
-
-      <div class="card">
-        <p style="margin-bottom:10px;"><b>핵심 목표</b></p>
-        <ul>
-          <li>청소년이 부담 없이 감정을 표현할 수 있는 “대화형 기록” 제공</li>
-          <li>KoBERT 기반 감성분석으로 감정 변화 추적(주/기간 단위)</li>
-          <li>주간 리포트(요약/추세/인사이트)로 “스스로 이해 + 다음 행동”까지 연결</li>
-        </ul>
-      </div>
+      <div class="section-title"><i class="fa-solid fa-person-falling"></i><h2>실패: 개념 없이 구현부터</h2></div>
+      <p>팀 4명 모두 초보였고, 저는 빨리 진행하려고 개념 없이 구현부터 시작했습니다. 막혔을 때 무엇이 잘못됐는지, 어디를 고쳐야 하는지 감이 잡히지 않아 특히 백엔드와 인프라에서 먼 길을 돌았고, 공모전 본선에서 탈락했습니다.</p><div class="card"><h3>그 뒤 바꾼 방식</h3><p><b>필요한 것과 모르는 것을 먼저 적고, 구현은 그다음에</b> 합니다.</p></div>
     </section>
-
     <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-sitemap"></i>
-        <h2>System Architecture</h2>
-        <div class="line" aria-hidden="true"></div>
-      </div>
-
-      <p>
-        서비스는 기능을 분리한 <b>마이크로서비스 구조</b>로 구성했고,
-        K-PaaS(Kubernetes) 환경에 배포하여 운영 가능한 형태로 만들었습니다.
-      </p>
-
-      <div class="mono">
-        insideup namespace<br/>
-        ├─ backend-api (FastAPI) : 인증/유저/기록/리포트 API<br/>
-        ├─ chatbot-ai (FastAPI) : OpenAI 연동 대화/프롬프트/응답 처리<br/>
-        ├─ kobert-sentiment : KoBERT 감성분석 서비스(정서 점수/라벨)<br/>
-        ├─ mysql : 데이터 저장(기록/리포트/유저 등)<br/>
-        ├─ redis : 캐시/세션/토큰 등 처리<br/>
-        └─ ingress (nginx) : /api, /chat, /sentiment 라우팅
-      </div>
-
-      <div class="card">
-        <p style="margin-bottom:10px;"><b>라우팅 예시</b></p>
-        <ul>
-          <li><b>/api/</b> → backend-service (8000)</li>
-          <li><b>/chat/</b> → chatbot-service (8001)</li>
-          <li><b>/sentiment/</b> → kobert-sentiment-service</li>
-        </ul>
-      </div>
+      <div class="section-title"><i class="fa-solid fa-user-doctor"></i><h2>판단: 전문가 조언을 서비스로</h2></div>
+      <p>청소년 대상 서비스라 무엇을 고려해야 하는지 알기 위해, 팀이 함께 단국대학교 마음건강연구소 소장님께 자문을 받았습니다. 핵심은 "청소년이 자기 감정을 스스로 아는 것"이었고, 이를 세 가지로 옮겼습니다.</p><ul><li><span>주간 리포트로 감정 흐름을 보여 주기</span></li><li><span>감정 분류 결과를 하루·한 주의 <b>감정온도</b>로 바꿔 스스로 자각하게 하기 (부정 감정은 데이터가 적어 가중치를 줌)</span></li><li><span>감정온도가 낮게 이어지는 사용자에게만, 대화 속에서 PHQ-9을 바탕으로 한 9개 질문을 하나씩 묻기 (공감 먼저, 애매하면 보수적으로 채점, 위기 상담 번호 안내)</span></li></ul>
     </section>
-
     <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-screwdriver-wrench"></i>
-        <h2>Core Tasks</h2>
-        <div class="line" aria-hidden="true"></div>
-      </div>
-
-      <ul>
-        <li><b>백엔드 API 구축</b>: FastAPI 기반으로 인증/데이터 처리/리포트 생성 API 설계 및 구현</li>
-        <li><b>OpenAI 챗봇 서비스</b>: 대화 흐름 설계(공감 → 질문 → 요약 → 행동 제안), 응답 품질 개선</li>
-        <li><b>KoBERT 감성분석</b>: 텍스트 감정 라벨/점수 산출용 별도 서비스로 분리하여 연동</li>
-        <li><b>DB/캐시 구성</b>: MySQL로 영속 데이터 저장, Redis로 캐시/세션 등 성능 보조</li>
-        <li><b>Kubernetes 배포</b>: Deployment/Service/ConfigMap/Secret/Ingress 정의하여 K-PaaS에 배포</li>
-        <li><b>운영 관점 최적화</b>: 리소스 request/limit 설정, imagePullSecret 적용, 서비스 분리로 장애 영향 최소화</li>
-      </ul>
-
-      <div class="card">
-        <p style="margin-bottom:10px;"><b>배포에서 신경 쓴 포인트</b></p>
-        <ul>
-          <li>서비스별 포트 분리(8000/8001/…)</li>
-          <li>ConfigMap/Secret로 환경변수 관리(민감정보 코드에 하드코딩 방지)</li>
-          <li>Ingress로 외부 진입점 단일화</li>
-        </ul>
-      </div>
+      <div class="section-title"><i class="fa-solid fa-brain"></i><h2>감정 분류 모델</h2></div>
+      <p>시간이 촉박해 모델을 직접 만들기보다 한국어에 특화된 KoBERT를 골랐습니다. AI-Hub 감성 대화 말뭉치로 학습했고, 처음 60개 세부 감정만 넣었을 때 정확도가 낮아 <b>대표 감정 6개와 세부 감정을 함께 넣는 방식</b>으로 바꿨습니다.</p><div class="table-wrap"><table class="cmp"><tr><th>지표</th><th>값</th></tr><tr><td>대표 감정(6개) 정확도</td><td>0.67 (Macro-F1 0.60)</td></tr><tr><td>세부 감정 정확도</td><td>약 0.4 (큰 개선은 없음)</td></tr></table></div><p>학습은 팀원과 함께 진행했습니다.</p>
     </section>
-
     <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-trophy"></i>
-        <h2>Results &amp; Learnings</h2>
-        <div class="line" aria-hidden="true"></div>
-      </div>
-
-      <p>
-        이번 프로젝트를 통해 “앱 기능 구현”을 넘어서,
-        <b>실제로 배포/운영 가능한 AI 서비스 형태</b>로 구성하는 경험을 만들었습니다.
-      </p>
-
-      <div class="card">
-        <p style="margin-bottom:10px;"><b>성과(예시 문구)</b></p>
-        <ul>
-          <li>OpenAI + KoBERT 감성분석을 결합한 정서 보조 파이프라인 구축</li>
-          <li>마이크로서비스 기반으로 기능 분리(챗봇/감성분석/백엔드)하여 확장성 확보</li>
-          <li>K-PaaS(Kubernetes) 환경에 Ingress 포함 배포 구성 완료</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <p style="margin-bottom:10px;"><b>배운 점</b></p>
-        <ul>
-          <li>AI 기능도 “서비스 운영 관점(배포/라우팅/리소스)”으로 설계해야 안정적으로 돌아간다</li>
-          <li>모델/LLM 품질은 프롬프트와 UX 흐름(질문 순서/요약 방식)에서 크게 좌우된다</li>
-          <li>Config/Secret 분리, 서비스 분리 등 기본기가 실제 장애/유지보수 난이도를 결정한다</li>
-        </ul>
-      </div>
+      <div class="section-title"><i class="fa-solid fa-flag"></i><h2>한계</h2></div>
+      <ul><li><span>감정온도의 감정별 점수와 진단 전환 기준은 데이터나 임상 근거 없이 직접 정한 값이라 검증이 필요합니다.</span></li><li><span>세부 감정 분류 정확도는 낮은 수준에 머물렀고, 온도도 분류 오류의 영향을 받습니다.</span></li><li><span>사용 전후 효과는 측정하지 못했습니다.</span></li></ul>
     </section>
-
-    <footer>
-      <p>&copy; 2026 Kwon Minseok. All rights reserved.</p>
-    </footer>
+    <footer><p>&copy; 2026 Kwon Minseok. All rights reserved.</p></footer>
   </div>
 </body>
 </html>

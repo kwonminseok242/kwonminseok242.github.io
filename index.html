@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>권민석 | AI Engineer & Data Analyst</title>
+    <title>권민석 | AI 서비스 개발자 (AX)</title>
+    <meta name="description" content="현장의 병목을 숫자로 찾고, AI로 풀고, 안전하게 굴러가게 만드는 AI 서비스 개발자 권민석의 포트폴리오">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -603,6 +604,26 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Competencies */
+        .comp-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; margin-top:8px; }
+        .comp-card { padding:32px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:20px; transition:all .3s ease; }
+        .comp-card:hover { border-color:var(--accent-primary); transform:translateY(-6px); }
+        .comp-num { font-family:'JetBrains Mono',monospace; color:var(--accent-primary); font-weight:600; margin-bottom:12px; display:block; }
+        .comp-card h3 { font-size:1.35rem; font-weight:800; margin-bottom:10px; }
+        .comp-card p { color:var(--text-secondary); margin-bottom:14px; }
+        .comp-card .ev { font-size:.9rem; color:var(--text-muted); border-top:1px solid rgba(255,255,255,0.06); padding-top:12px; }
+        /* Awards */
+        .award-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; }
+        .award { display:flex; gap:16px; align-items:flex-start; padding:20px 24px; border-radius:16px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); }
+        .award i { color:var(--accent-primary); font-size:1.25rem; margin-top:4px; }
+        .award strong { display:block; font-size:1.05rem; }
+        .award span { color:var(--text-muted); font-size:.9rem; }
+        .project-image.placeholder { display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#1e3a8a 0%,#4c1d95 100%); }
+        .project-image.placeholder i { font-size:4rem; color:rgba(255,255,255,0.85); }
+        .projects-grid { grid-template-columns:repeat(2,1fr); }
+        @media (max-width:768px){ .projects-grid { grid-template-columns:1fr; } }
+        .skill-card small { display:block; color:var(--text-muted); font-size:.8rem; margin-top:6px; position:relative; z-index:1; }
     </style>
 </head>
 <body>
@@ -614,8 +635,9 @@
             <div class="logo">MINSEOK</div>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#awards">Awards</a></li>
+                <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -625,17 +647,18 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-badge">
-                    <i class="fas fa-sparkles"></i>
-                    Available for opportunities
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                    AI 서비스 개발자 (AX)
                 </div>
                 <h1>
-                    안녕하세요,<br>
-                    <span class="gradient-text">데이터로 가치를 만드는</span><br>
-                    AI Engineer입니다
+                    현장의 병목을 숫자로 찾고,<br>
+                    <span class="gradient-text">AI로 풀고, 안전하게</span><br>
+                    굴러가게 만듭니다
                 </h1>
                 <p>
-                    복잡한 데이터 속에서 의미 있는 인사이트를 발견하고, 
-                    최신 AI 기술을 활용하여 실질적인 비즈니스 가치를 창출합니다.
+                    산업공학을 전공하며 시뮬레이션으로 병목을 찾는 법을 배웠고,
+                    2025년부터 개발을 시작해 그 방식을 AI 서비스에 옮기고 있습니다.
+                    KOSCOM AI Agent Challenge 2025 대상(팀 단콤).
                 </p>
                 <div class="cta-buttons">
                     <a href="#projects" class="btn btn-primary">
@@ -648,14 +671,11 @@
                     </a>
                 </div>
                 <div class="social-icons">
-                    <a href="https://github.com/kwonminseok242" target="_blank" class="social-icon">
+                    <a href="https://github.com/kwonminseok242" target="_blank" class="social-icon" aria-label="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="mailto:kwonminseok7364@naver.com" class="social-icon">
+                    <a href="mailto:kwonminseok7364@naver.com" class="social-icon" aria-label="Email">
                         <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="fab fa-linkedin"></i>
                     </a>
                 </div>
             </div>
@@ -666,40 +686,29 @@
         <section id="about" class="fade-in">
             <div class="section-header">
                 <span class="section-badge">About Me</span>
-                <h2 class="section-title">데이터 기반 문제 해결자</h2>
+                <h2 class="section-title">일하는 방식 세 가지</h2>
                 <p class="section-description">
-                    다양한 공모전과 국내 대회를 통해 데이터 분석 실무 프로세스를 익혔습니다.
-                    단순히 모델의 성능을 높이는 것을 넘어, 데이터 속에 숨겨진 인사이트를 발견하고 
-                    비즈니스적 가치로 연결하는 AI 엔지니어를 목표로 하고 있습니다.
+                    가장 좋아 보이는 답보다, 현장에서 실제로 쓰이고 사고 없이 돌아가는 답을 찾습니다.
                 </p>
             </div>
-        </section>
-
-        <section id="skills" class="fade-in">
-            <div class="section-header">
-                <span class="section-badge">Skills</span>
-                <h2 class="section-title">Technical Expertise</h2>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <i class="fab fa-python"></i>
-                    <h3>Python</h3>
+            <div class="comp-grid">
+                <div class="comp-card">
+                    <span class="comp-num">01</span>
+                    <h3>숫자로 문제를 찾습니다</h3>
+                    <p>감이 아니라 데이터와 시뮬레이션으로 문제를 정의합니다.</p>
+                    <div class="ev">택배 터미널 시뮬레이션 팀 리더 · 병목을 찾아 3시간 처리량 17,116건 → 26,857건</div>
                 </div>
-                <div class="skill-card">
-                    <i class="fas fa-brain"></i>
-                    <h3>PyTorch / TF</h3>
+                <div class="comp-card">
+                    <span class="comp-num">02</span>
+                    <h3>목적에 맞는 AI를 고릅니다</h3>
+                    <p>오차가 가장 낮은 모델보다, 쓰일 환경에 맞는 모델과 구조를 고릅니다.</p>
+                    <div class="ev">OHT 열화 예측 · 가장 정확한 Informer 대신 실시간 감시에 맞는 TCN 선택</div>
                 </div>
-                <div class="skill-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Data Analysis</h3>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-database"></i>
-                    <h3>SQL</h3>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-microchip"></i>
-                    <h3>MLOps</h3>
+                <div class="comp-card">
+                    <span class="comp-num">03</span>
+                    <h3>안전하게 굴러가게 만듭니다</h3>
+                    <p>AI 서비스가 실제로 사고 없이 동작하도록 안전장치를 만듭니다.</p>
+                    <div class="ev">음성 뱅킹 앱 · 같은 이체가 두 번 들어와도 한 번만 처리되도록 DB에 중복 방지 규칙 추가</div>
                 </div>
             </div>
         </section>
@@ -709,24 +718,42 @@
                 <span class="section-badge">Projects</span>
                 <h2 class="section-title">Featured Work</h2>
                 <p class="section-description">
-                    실제 비즈니스 문제를 해결한 프로젝트들입니다
+                    문제를 어떻게 정의했고, 어떤 선택지 중에서 왜 골랐는지까지 정리했습니다
                 </p>
             </div>
             <div class="projects-grid">
-                
+
                 <a href="project/stable-coin.html" style="text-decoration: none; color: inherit;">
                     <div class="project-card">
                         <div class="project-image">
-                            <span class="project-badge">🏆 공모전 대상</span>
-                            <img src="koscom.png" alt="스테이블 코인 프로젝트">
+                            <span class="project-badge">🏆 KOSCOM 대상</span>
+                            <img src="koscom.png" alt="스테이블코인 리스크 관리 AI Agent">
                         </div>
                         <div class="project-content">
-                            <h3>스테이블 코인 리스크 관리 AI Agent</h3>
-                            <p>클로드 AI와 DART 공시 정보를 결합하여 이상 거래를 탐지하고 관리하는 AI 에이전트를 개발했습니다.</p>
+                            <h3>스테이블코인 리스크 관리 AI Agent</h3>
+                            <p>주제가 정해지지 않은 대회에서 스테이블코인 리스크를 직접 제안했습니다. 자연어 질문 하나로 근거 리포트와 증빙팩까지 남기는 에이전트를 만들었습니다.</p>
                             <div class="project-tags">
-                                <span class="tag">#Python</span>
+                                <span class="tag">#AI_Agent</span>
+                                <span class="tag">#MCP</span>
+                                <span class="tag">#LocalBlockchain</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="project/talk-banking.html" style="text-decoration: none; color: inherit;">
+                    <div class="project-card">
+                        <div class="project-image placeholder">
+                            <span class="project-badge">🏦 우리FISA 최종 과제</span>
+                            <i class="fas fa-microphone-lines" aria-hidden="true"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3>톡뱅킹: 시각장애인 음성 뱅킹</h3>
+                            <p>말로 송금하는 멀티 에이전트 앱에서 송금 에이전트를 맡았습니다. 재시도나 연타에도 출금이 한 번만 되도록 DB 레벨에서 중복을 막았습니다.</p>
+                            <div class="project-tags">
                                 <span class="tag">#LangGraph</span>
-                                <span class="tag">#RAG</span>
+                                <span class="tag">#Idempotency</span>
+                                <span class="tag">#ReactNative</span>
                             </div>
                         </div>
                     </div>
@@ -735,16 +762,16 @@
                 <a href="project/oht-sensor.html" style="text-decoration: none; color: inherit;">
                     <div class="project-card">
                         <div class="project-image">
-                            <span class="project-badge">📝 논문 발표</span>
-                            <img src="indust.png" alt="OHT 센서 프로젝트">
+                            <span class="project-badge">📝 학회 논문집 등재</span>
+                            <img src="indust.png" alt="OHT 열화 예측">
                         </div>
                         <div class="project-content">
-                            <h3>반도체 OHT 탄화 예측 시스템</h3>
-                            <p>센서 데이터를 분석하여 고장 전조 현상을 예측하고, 클라우드 기반 실시간 모니터링을 구현했습니다.</p>
+                            <h3>OHT 이송장치 열화 예측</h3>
+                            <p>세 가지 시계열 딥러닝 모델을 비교하고, 오차가 가장 낮은 모델 대신 실시간 감시에 맞는 TCN을 골랐습니다.</p>
                             <div class="project-tags">
-                                <span class="tag">#DeepLearning</span>
                                 <span class="tag">#PyTorch</span>
-                                <span class="tag">#Cloud</span>
+                                <span class="tag">#TCN</span>
+                                <span class="tag">#TimeSeries</span>
                             </div>
                         </div>
                     </div>
@@ -753,40 +780,71 @@
                 <a href="project/emotion-app.html" style="text-decoration: none; color: inherit;">
                     <div class="project-card">
                         <div class="project-image">
-                            <span class="project-badge">🎯 K-PaaS</span>
-                            <img src="k-paas.png" alt="청소년 정서 앱">
+                            <span class="project-badge">🎓 학술제 최우수 학술발표상</span>
+                            <img src="k-paas.png" alt="INSIDE_UP 청소년 감정 챗봇">
                         </div>
                         <div class="project-content">
-                            <h3>청소년 정서 보조 앱</h3>
-                            <p>KoBERT로 감정을 상세 분류하고, OpenAI 기반 대화를 통해 정서 케어를 지원하는 앱을 개발했습니다.</p>
+                            <h3>INSIDE_UP: 청소년 감정 챗봇</h3>
+                            <p>전문가 자문을 감정온도와 대화형 위험 체크로 옮겼습니다. 구현부터 서두르다 먼 길을 돈 실패에서 일하는 방식을 바꿨습니다.</p>
                             <div class="project-tags">
-                                <span class="tag">#NLP</span>
                                 <span class="tag">#KoBERT</span>
+                                <span class="tag">#OpenAI</span>
                                 <span class="tag">#FastAPI</span>
                             </div>
                         </div>
                     </div>
                 </a>
-                
+
+            </div>
+        </section>
+
+        <section id="awards" class="fade-in">
+            <div class="section-header">
+                <span class="section-badge">Awards &amp; Certifications</span>
+                <h2 class="section-title">수상 · 자격</h2>
+            </div>
+            <div class="award-list">
+                <div class="award"><i class="fas fa-trophy"></i><div><strong>KOSCOM AI Agent Challenge 2025 대상</strong><span>코스콤 · 2025.12</span></div></div>
+                <div class="award"><i class="fas fa-trophy"></i><div><strong>우리FISA 기술세미나 1위 (AI 에이전트 동향 분석)</strong><span>우리FISA · 2026.02</span></div></div>
+                <div class="award"><i class="fas fa-award"></i><div><strong>경영공학과 학술제 최우수 학술발표상</strong><span>단국대학교 경영공학과 · 2025.11</span></div></div>
+                <div class="award"><i class="fas fa-file-lines"></i><div><strong>대한산업공학회 춘계공동학술대회 논문집 등재</strong><span>OHT 열화 예측 시계열 모델 비교 연구 · 2025</span></div></div>
+                <div class="award"><i class="fas fa-certificate"></i><div><strong>정보처리기사</strong><span>한국산업인력공단 · 2026.09</span></div></div>
+                <div class="award"><i class="fas fa-certificate"></i><div><strong>데이터분석 준전문가 (ADsP)</strong><span>한국데이터산업진흥원 · 2026.03</span></div></div>
+                <div class="award"><i class="fas fa-certificate"></i><div><strong>SQL 개발자 (SQLD)</strong><span>한국데이터산업진흥원 · 2025.09</span></div></div>
+                <div class="award"><i class="fas fa-language"></i><div><strong>OPIc IH (영어)</strong><span>2026.09</span></div></div>
+            </div>
+        </section>
+
+        <section id="skills" class="fade-in">
+            <div class="section-header">
+                <span class="section-badge">Skills</span>
+                <h2 class="section-title">Technical Stack</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card"><i class="fab fa-python"></i><h3>Python</h3></div>
+                <div class="skill-card"><i class="fas fa-bolt"></i><h3>FastAPI</h3></div>
+                <div class="skill-card"><i class="fas fa-diagram-project"></i><h3>LangGraph</h3></div>
+                <div class="skill-card"><i class="fas fa-brain"></i><h3>PyTorch</h3></div>
+                <div class="skill-card"><i class="fas fa-database"></i><h3>SQL</h3></div>
+                <div class="skill-card"><i class="fab fa-docker"></i><h3>Docker</h3></div>
+                <div class="skill-card"><i class="fab fa-react"></i><h3>React Native</h3></div>
+                <div class="skill-card"><i class="fab fa-java"></i><h3>Java / Spring Boot</h3><small>학습 중</small></div>
             </div>
         </section>
 
         <section id="contact" class="fade-in">
             <div class="contact-card">
                 <h2>함께 성장할 기회를 찾고 계신가요?</h2>
-                <p>새로운 도전과 협업의 기회를 기다립니다</p>
+                <p>현장의 문제를 AI로 풀고, 안전하게 굴러가게 만드는 일을 함께하고 싶습니다</p>
                 <a href="mailto:kwonminseok7364@naver.com" class="contact-email">
                     kwonminseok7364@naver.com
                 </a>
                 <div class="contact-social">
-                    <a href="https://github.com/kwonminseok242" target="_blank" class="social-icon">
+                    <a href="https://github.com/kwonminseok242" target="_blank" class="social-icon" aria-label="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="mailto:kwonminseok7364@naver.com" class="social-icon">
+                    <a href="mailto:kwonminseok7364@naver.com" class="social-icon" aria-label="Email">
                         <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="fab fa-linkedin"></i>
                     </a>
                 </div>
             </div>
@@ -794,7 +852,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Kwon Minseok. Built with passion and code.</p>
+        <p>&copy; 2026 Kwon Minseok. Built with passion and code.</p>
     </footer>
 
     <script>
